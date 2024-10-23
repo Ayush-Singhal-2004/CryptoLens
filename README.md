@@ -29,6 +29,7 @@ pnpm install
 ```bash
 pnpm run dev
 ```
+
 ### Backend setup
 
 1. Navigate to the **backend** folder:
