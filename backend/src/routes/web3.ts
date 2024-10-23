@@ -1,7 +1,7 @@
 import express from "express";
-import { testFunction } from "../controllers/web3";
+import { getChains } from "../controllers/web3";
 const router = express.Router();
 
-router.get("/web3", testFunction);
+router.get("/chains", getChains);
 
 export default router;  // Corrected export statement
