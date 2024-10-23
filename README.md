@@ -9,10 +9,37 @@
 - **DeFi Insights**: Explore decentralized finance activities with ease.
 - **User-Friendly Interface**: Intuitive design that makes tracking assets simple and efficient.
 
-## How to contribute?
+## How to Contribute?
 
 ```bash
 git clone https://github.com/yourusername/CryptoLens.git
 cd CryptoLens
 ```
-### Frontend
+### Frontend setup
+
+1. Navigate to the **frontend** folder:
+```bash
+cd frontend
+```
+2. Install dependencies using **pnpm**:
+```bash
+pnpm install
+```
+3. **Start** the development server:
+```bash
+pnpm run dev
+```
+### Backend setup
+
+1. Navigate to the **backend** folder:
+```bash
+cd backend
+```
+2. Install the backend dependencies using **npm**:
+```bash
+npm install
+```
+3. Start the backend server:
+```bash
+npm run start
+```
