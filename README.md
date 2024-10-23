@@ -9,7 +9,7 @@
 - **DeFi Insights**: Explore decentralized finance activities with ease.
 - **User-Friendly Interface**: Intuitive design that makes tracking assets simple and efficient.
 
-## Contribution
+## How to contribute?
 
 ```bash
 git clone https://github.com/yourusername/CryptoLens.git
