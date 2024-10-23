@@ -8,3 +8,9 @@
 - **Onchain Activity Monitoring**: Track live transactions and see what's happening onchain.
 - **DeFi Insights**: Explore decentralized finance activities with ease.
 - **User-Friendly Interface**: Intuitive design that makes tracking assets simple and efficient.
+
+## Contribution
+
+```bash
+git clone https://github.com/yourusername/CryptoLens.git
+cd CryptoLens
