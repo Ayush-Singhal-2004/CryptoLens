@@ -14,3 +14,5 @@
 ```bash
 git clone https://github.com/yourusername/CryptoLens.git
 cd CryptoLens
+```
+### Frontend
