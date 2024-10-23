@@ -1,12 +1,24 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": ""
+    "name": "server",
+    "version": "1.0.0",
+    "main": "source/server.ts",
+    "scripts": {
+        "dev": "nodemon source/server.ts",
+        "build": "rm -rf build/ && prettier --write source/ && tsc"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+        "@types/axios": "^0.14.4",
+        "@types/express": "^5.0.0",
+        "@types/morgan": "^1.9.9",
+        "axios": "^1.7.7",
+        "express": "^4.21.1",
+        "morgan": "^1.10.0",
+        "nodemon": "^3.1.7",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.6.3"
+    }
 }
