@@ -2,7 +2,7 @@ import { Card, CardContent } from "@/components/ui/card"
 
 function ActivityCard() {
     return (
-        <Card className="mb-3">
+        <Card className="mb-3 shadow-xl">
             <CardContent className="py-5 flex flex-col gap-4">
                 <div className="flex items-center gap-2">
                     <img 
@@ -21,11 +21,11 @@ function ActivityCard() {
                         Bought <span className="text-[#927FFF]">delegati.eth</span> fan tokens
                     </p>
                 </div>
-                <div className="flex items-center gap-3 bg-[#0d0d0d] p-2 rounded-lg">
+                <div className="flex items-center gap-3 dark:bg-[#0d0d0d] p-2 rounded-lg">
                     <img src="https://zapper.xyz/cdn-cgi/image/width=32/https://storage.googleapis.com/zapper-fi-assets/tokens/base/0x8c9037d1ef5c6d1f6816278c7aaf5491d24cd527.png" alt="logo" 
                     className="h-7 w-7" />
                     <p>600 MOXIE</p>
-                    <p className="font-semibold text-sm bg-gray-800 px-2 border border-gray-600 rounded-lg">
+                    <p className="font-semibold text-sm dark:bg-gray-800 px-2 border dark:border-gray-600 rounded-lg">
                         IN
                     </p>
                 </div>

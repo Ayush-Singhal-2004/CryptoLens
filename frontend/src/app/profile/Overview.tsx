@@ -13,9 +13,9 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 
 function Overview() {
     return (
-        <div className="px-4 flex justify-between">
+        <div className="px-4 flex justify-between py-2">
             <div className="w-[49%]">
-                <Card>
+                <Card className="mb-3 shadow-xl">
                     <CardHeader>
                         <CardTitle className="text-xl">
                             <div className="flex justify-between">
@@ -46,7 +46,7 @@ function Overview() {
                 </Card>
             </div>
             <div className="w-[49%]">
-                <Card className="mb-3">
+                <Card className="mb-3 shadow-xl">
                     <CardContent className="flex items-center py-4">
                         <h1 className="font-semibold text-xl">Activity</h1>
                     </CardContent>

@@ -22,7 +22,7 @@ function Navbar() {
             </div>
             <div className="flex gap-3">
                 <Button variant="default" className="font-semibold">Connect Wallet</Button>
-                <Button variant="default" onClick={changeTheme}>
+                <Button variant="ghost" onClick={changeTheme}>
                     {
                         theme == "dark" ? <MdOutlineDarkMode /> : <MdOutlineLightMode />
                     }
