@@ -2,7 +2,7 @@ import http from 'http';
 import express, {Express} from 'express';
 import morgan from 'morgan';
 import routes from './routes/web3';
-import {ServerConfig} from './config';
+import {ServerConfig} from './config/serverConfig';
 
 const router: Express = express();
 
