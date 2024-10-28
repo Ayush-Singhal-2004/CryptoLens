@@ -5,13 +5,18 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"  
-import DataTable from "../components/DataTable";
+import DataTable from "../..//components/DataTable";
 import { Button } from "@/components/ui/button";
 import { IoIosArrowForward } from "react-icons/io";
-import ActivityCard from "./ActivityCard";
+import ActivityCard from "../ActivityCard";
 import { ScrollArea } from "@/components/ui/scroll-area"
+import NftCard from "../NFTs/NftCard";
 
-function Overview() {
+type OverviewPropType = {
+    updateTabState: (updatedState: string) => void 
+}
+
+function Overview({updateTabState}: OverviewPropType) {
     return (
         <div className="px-4 flex justify-between py-2">
             <div className="w-[49%]">
@@ -43,6 +48,23 @@ function Overview() {
                             </div>
                         </CardTitle>
                     </CardHeader>
+                    <CardContent className="grid grid-cols-2 grid-rows-1 justify-items-center" id="overview-nft-grid-container">
+                        <div id="overview-grid-container-item">
+                            <NftCard />
+                        </div>
+                        <div id="overview-grid-container-item">
+                            <NftCard />
+                        </div>
+                        <div id="overview-grid-container-item">
+                            <NftCard />
+                        </div>
+                        <div id="overview-grid-container-item">
+                            <NftCard />
+                        </div>
+                        <div id="overview-grid-container-item">
+                            <NftCard />
+                        </div>
+                    </CardContent>
                 </Card>
             </div>
             <div className="w-[49%]">
@@ -51,13 +73,20 @@ function Overview() {
                         <h1 className="font-semibold text-xl">Activity</h1>
                     </CardContent>
                 </Card>
-                <ScrollArea className="h-[500px] w-full">    
+                <ScrollArea className="h-[120vh] w-full">    
                     <ActivityCard />
                     <ActivityCard />
                     <ActivityCard />
                     <ActivityCard />
                     <ActivityCard />
                     <ActivityCard />
+                    <div className="flex justify-end px-5">
+                        <Button variant={"outline"} className="font-semibold"
+                        onClick={() => updateTabState("activity")}>
+                            View all
+                            <IoIosArrowForward />
+                        </Button>
+                    </div>
                 </ScrollArea>
             </div>
         </div>

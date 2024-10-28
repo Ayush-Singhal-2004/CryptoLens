@@ -6,6 +6,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"  
+import { Card, CardContent } from "@/components/ui/card";
 
 function DataTable() {
     return (

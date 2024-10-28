@@ -1,10 +1,25 @@
+"use client"
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import Overview from "../Overview";
+import Overview from "../Overview/Overview";
 import { Card, CardContent } from "@/components/ui/card"  
 import { Button } from "@/components/ui/button";
 import { LuSend } from "react-icons/lu";
+import NftCard from "../NFTs/NftCard";
+import Activity from "../Activity/Activity";
+import { useState } from "react";
+import TransactionTable from "../Wallet/TransactionTable";
 
 export default function Profile() {
+
+    const [tabState, setTabState] = useState("overview");
+
+    console.log(tabState);
+
+    const updateTabState = (updatedState: string) => {
+        setTabState(updatedState)
+    }
+
     return (
         <div>
             <div>
@@ -28,28 +43,41 @@ export default function Profile() {
                     </div>
                 </div>
                 <div>
-                <Tabs defaultValue="overview" className="max-w-screen">
+                <Tabs value={tabState} className="max-w-screen">
                     <div className="px-4 py-3 border-b dark:border-b-[#262626]">
                         <TabsList>
-                            <TabsTrigger value="overview" className="font-semibold text-md">
+                            <TabsTrigger value="overview" className="font-semibold text-md" onClick={() => setTabState("overview")}>
                                 Overview
                             </TabsTrigger>
-                            <TabsTrigger value="nft" className="font-semibold text-md">
+                            <TabsTrigger value="nft" className="font-semibold text-md"
+                            onClick={() => setTabState("nft")}>
                                 NFTs
                             </TabsTrigger>
-                            <TabsTrigger value="activity" className="font-semibold text-md">
+                            <TabsTrigger value="activity" className="font-semibold text-md" onClick={() => setTabState("activity")}>
                                 Activity
+                            </TabsTrigger>
+                            <TabsTrigger value="wallet" className="font-semibold text-md" onClick={() => setTabState("wallet")}>
+                                Wallet
                             </TabsTrigger>
                         </TabsList>
                     </div>
                     <TabsContent value="overview">
-                        <Overview />
+                        <Overview updateTabState={updateTabState} />
                     </TabsContent>
                     <TabsContent value="nft">
-                        TODO: nft page
+                        <div className="grid grid-cols-4 justify-items-center gap-y-5 py-5">
+                            <NftCard />
+                            <NftCard />
+                            <NftCard />
+                            <NftCard />
+                            <NftCard />
+                        </div>
                     </TabsContent>
                     <TabsContent value="activity">
-                        TODO: activity page
+                        <Activity />
+                    </TabsContent>
+                    <TabsContent value="wallet">
+                        <TransactionTable />
                     </TabsContent>
                 </Tabs>
                 </div>

@@ -76,3 +76,20 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+
+#overview-nft-grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  grid-template-rows: 1fr;               
+  gap: 10px;                            
+  overflow: hidden;   
+}
+
+#overview-nft-grid-container #overview-grid-container-item:nth-child(n+3) {
+  display: none; 
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
