@@ -11,10 +11,21 @@ import {error as errorResponse ,success as successResponse,postRequest} from "..
 //     symbol: string;
 //   }
 
+export const getChains =async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        successResponse.data=chains
+        res.status(StatusCodes.OK).json(successResponse);
+    } catch (error: any) {
+        errorResponse.error = error
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(errorResponse);
+    }
+}
+
 export const getTokens = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const addressHash=req.params.address
         let response= await postRequest("addon/763/rest/addresses/token-balances",addressHash)
+        // Note: Extract data from the api and populate the extreded_data array waiting for final the response discussion.
         // let extreded_data: Array<ExtractedTokenData> = [];
         // response.forEach((item: any) => {
         //     extreded_data.push({
