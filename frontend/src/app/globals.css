@@ -93,3 +93,12 @@ body {
 ::-webkit-scrollbar {
   display: none;
 }
+
+@media (max-width: 640px) {
+  #overview-nft-grid-container {
+    grid-template-columns: repeat(1, 1fr); 
+  }
+  #overview-nft-grid-container #overview-grid-container-item:nth-child(n+2) {
+    display: none; 
+  }
+}

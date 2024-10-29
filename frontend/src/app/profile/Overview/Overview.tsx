@@ -18,8 +18,8 @@ type OverviewPropType = {
 
 function Overview({updateTabState}: OverviewPropType) {
     return (
-        <div className="px-4 flex justify-between py-2">
-            <div className="w-[49%]">
+        <div className="px-4 flex justify-between py-2 max-sm:flex-col max-sm:items-center">
+            <div className="w-[49%] max-sm:w-full">
                 <Card className="mb-3 shadow-xl">
                     <CardHeader>
                         <CardTitle className="text-xl">
@@ -33,7 +33,8 @@ function Overview({updateTabState}: OverviewPropType) {
                         <DataTable />
                     </CardContent>
                     <CardFooter className="flex justify-end">
-                        <Button variant={"outline"} className="font-semibold">
+                        <Button variant={"outline"} className="font-semibold" 
+                        onClick={() => updateTabState("wallet")}>
                             View all
                             <IoIosArrowForward />
                         </Button>
@@ -65,15 +66,22 @@ function Overview({updateTabState}: OverviewPropType) {
                             <NftCard />
                         </div>
                     </CardContent>
+                    <CardFooter className="flex justify-end">
+                        <Button variant={"outline"} className="font-semibold" 
+                        onClick={() => updateTabState("nft")}>
+                            View all
+                            <IoIosArrowForward />
+                        </Button>
+                    </CardFooter>
                 </Card>
             </div>
-            <div className="w-[49%]">
+            <div className="w-[49%] max-sm:w-full max-sm:mt-3">
                 <Card className="mb-3 shadow-xl">
                     <CardContent className="flex items-center py-4">
                         <h1 className="font-semibold text-xl">Activity</h1>
                     </CardContent>
                 </Card>
-                <ScrollArea className="h-[120vh] w-full">    
+                <ScrollArea className="h-[120vh] w-full max-sm:h-[50vh] max-sm:pb-5">    
                     <ActivityCard />
                     <ActivityCard />
                     <ActivityCard />

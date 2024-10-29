@@ -40,7 +40,7 @@ function TransactionTable() {
                                     tokens.map((token, index) => (
                                         <TableRow key={index} className="text-lg">
                                             <TableCell className="font-semibold">
-                                                <div className="flex items-center gap-4 w-72">
+                                                <div className="flex items-center gap-4 w-72 max-sm:w-32">
                                                     <img src="https://zapper.xyz/cdn-cgi/image/width=32/https://storage.googleapis.com/zapper-fi-assets/tokens/base/0x8c9037d1ef5c6d1f6816278c7aaf5491d24cd527.png" alt="" />
                                                     {token.token_name}
                                                 </div>
