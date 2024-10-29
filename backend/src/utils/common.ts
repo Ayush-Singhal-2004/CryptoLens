@@ -41,3 +41,20 @@ export async function postRequest(endpoint: string,Address_hash:string,filter:st
         return error
     }
 }
+
+export async function getRequest(endpoint:string)
+{
+    try {
+        let url=`${ServerConfig.apiUrl}/${endpoint}`;
+        const response = await axios.get(url).then(function (response) {
+            return response.data;
+        }).catch((err)=>{
+            console.log(err);
+            return err
+        });
+        return response
+    } catch (error) {
+        console.error(error)
+        return error
+    }
+}

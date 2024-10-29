@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { chains } from "../constants/constant";
 import { StatusCodes } from "http-status-codes";
-import {error as errorResponse ,success as successResponse,postRequest} from "../utils/common"
+import {error as errorResponse ,success as successResponse,postRequest,getRequest} from "../utils/common"
 
 // export interface ExtractedTokenData {
 //     exchange_rate: string;
@@ -61,6 +61,40 @@ export const getTransactionHistory = async (req: Request, res: Response, next: N
         const addressHash=req.params.address
         let response= await postRequest("addon/763/rest/addresses/transactions",addressHash,"to | from","")
         successResponse.data=response
+        res.status(StatusCodes.OK).json(successResponse);
+    } catch (error: any) {
+        errorResponse.error = error
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(errorResponse);
+    }
+};
+
+interface trendingcoinsResponse{
+    id: string,
+    name: string,
+    symbol: string,
+    rank: number,
+    image:string,
+    is_new: boolean,
+    is_active: boolean,
+    type: string
+}
+export const getTrendingCoins= async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        let response= await getRequest("addon/748/v1/coins")
+        let trendingCoins: Array<trendingcoinsResponse> = []
+        response.slice(0, 10).forEach((coin:any)=>{
+            trendingCoins.push({
+                id: coin.id,
+                name: coin.name,
+                symbol:coin.symbol,
+                rank: coin.rank,
+                image:`https://static.coinpaprika.com/coin/${coin.id}/logo.png`,
+                is_new: coin.is_new,
+                is_active: coin.is_active,
+                type: coin.type
+            })
+        })
+        successResponse.data=trendingCoins
         res.status(StatusCodes.OK).json(successResponse);
     } catch (error: any) {
         errorResponse.error = error
