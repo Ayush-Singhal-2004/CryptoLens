@@ -3,13 +3,6 @@ import { chains } from "../constants/constant";
 import { StatusCodes } from "http-status-codes";
 import {error as errorResponse ,success as successResponse,postRequest,getRequest} from "../utils/common"
 
-// export interface ExtractedTokenData {
-//     exchange_rate: string;
-//     holders: string;
-//     icon_url: string;
-//     name: string;
-//     symbol: string;
-//   }
 
 export const getChains =async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -25,17 +18,6 @@ export const getTokens = async (req: Request, res: Response, next: NextFunction)
     try {
         const addressHash=req.params.address
         let response= await postRequest("addon/763/rest/addresses/token-balances",addressHash)
-        // Note: Extract data from the api and populate the extreded_data array waiting for final the response discussion.
-        // let extreded_data: Array<ExtractedTokenData> = [];
-        // response.forEach((item: any) => {
-        //     extreded_data.push({
-        //         exchange_rate: item.token.exchange_rate,
-        //         holders: item.token.holders,
-        //         icon_url: item.token.icon_url,
-        //         name: item.token.name,
-        //         symbol: item.token.symbol,
-        //     });
-        // });
         successResponse.data=response
         res.status(StatusCodes.OK).json(successResponse);
     } catch (error: any) {
@@ -101,3 +83,15 @@ export const getTrendingCoins= async (req: Request, res: Response, next: NextFun
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(errorResponse);
     }
 };
+
+export const getCoinByID=async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try{
+        const assert_id=req.params.id
+        let response= await getRequest(`addon/748/v1/coins/${assert_id}`)
+        successResponse.data=response
+        res.status(StatusCodes.OK).json(successResponse);
+    } catch (error: any) {
+        errorResponse.error = error
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(errorResponse);
+    }
+}
