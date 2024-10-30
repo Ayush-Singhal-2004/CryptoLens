@@ -3,8 +3,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Overview from "../Overview/Overview";
 import { Card, CardContent } from "@/components/ui/card"  
-import { Button } from "@/components/ui/button";
-import { LuSend } from "react-icons/lu";
+// import { Button } from "@/components/ui/button";
+// import { LuSend } from "react-icons/lu";
 import NftCard from "../NFTs/NftCard";
 import Activity from "../Activity/Activity";
 import TransactionTable from "../Wallet/TransactionTable";

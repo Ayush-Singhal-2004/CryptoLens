@@ -11,10 +11,10 @@ import { IoIosArrowForward } from "react-icons/io";
 import ActivityCard from "../ActivityCard";
 import { ScrollArea } from "@/components/ui/scroll-area"
 import NftCard from "../NFTs/NftCard";
-import { useEffect, useState } from "react";
-import getResponse from "@/app/utils/api";
-import { useParams } from "next/navigation";
-import isValidAddress from "@/app/utils/checkAddress";
+// import { useEffect, useState } from "react";
+// import getResponse from "@/app/utils/api";
+// import { useParams } from "next/navigation";
+// import isValidAddress from "@/app/utils/checkAddress";
 import { Skeleton } from "@/components/ui/skeleton";
 
 type OverviewPropType = {
