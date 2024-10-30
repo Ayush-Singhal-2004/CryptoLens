@@ -196,7 +196,7 @@ const SidebarContent = ({ Router, chains, coins }) => {
 
       <div className="mt-8 dark:border-t-2 dark:border-b-2 border-gray-700 py-2 h-40 overflow-y-auto overflow-visible">
         <div className="mt-4 space-y-2">
-          {coins?.map((coin, index) => (
+          {coins?.map((coin) => (
             <div key={coin.id} className="flex items-center gap-2">
               <img src={coin.image} alt={coin.name} className="w-8 h-8 rounded" />
               <span>{coin.name}</span>
@@ -215,7 +215,7 @@ const SidebarContent = ({ Router, chains, coins }) => {
 const Dashboard = () => {
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [currentBaseFee, setCurrentBaseFee] = useState(7);
+  const [currentBaseFee] = useState(7);
   const [chains,setChains] = useState([])  
   const [coins,setCoins] = useState([]) 
   const [formData, setFormData] = useState({
@@ -228,20 +228,20 @@ const Dashboard = () => {
 const Router = useRouter();
 
 // Handle input changes
-const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-        ...formData,
-        [name]: value,
-    });
-};
+// const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData({
+//         ...formData,
+//         [name]: value,
+//     });
+// };
 
 // Handle form submission
-const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form Data Submitted:', formData);
-    // Here you can add logic to send the formData to your server or API
-};
+// const handleSubmit = (e) => {
+//     e.preventDefault();
+//     console.log('Form Data Submitted:', formData);
+//     // Here you can add logic to send the formData to your server or API
+// };
 
 
 
