@@ -1,7 +1,7 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { HomeIcon, UserIcon,  ImageIcon, MenuIcon, XIcon, PlusIcon, Router,Layout, Shield } from 'lucide-react';
-
+import {getData} from "./../lib/getData"
 import {
   Card,
   CardContent,
@@ -82,21 +82,7 @@ const trendingCollections = [
   },
 ];
 
-//array for chains
-const chains = [
-  { id: 1, name: "Ethereum", color: "bg-blue-500" },
-  { id: 2, name: "Apechain", color: "bg-purple-500" },
-  { id: 3, name: "Arbitrum", color: "bg-green-500" },
-  { id: 1, name: "Ethereum", color: "bg-blue-500" },
-  { id: 2, name: "Apechain", color: "bg-purple-500" },
-  { id: 3, name: "Arbitrum", color: "bg-green-500" },
-  { id: 1, name: "Ethereum", color: "bg-blue-500" },
-  { id: 2, name: "Apechain", color: "bg-purple-500" },
-  { id: 3, name: "Arbitrum", color: "bg-green-500" },
-  { id: 1, name: "Ethereum", color: "bg-blue-500" },
-  { id: 2, name: "Apechain", color: "bg-purple-500" },
-  { id: 3, name: "Arbitrum", color: "bg-green-500" },
-];
+
 
 
 
@@ -150,61 +136,79 @@ const TrendingCollection = ({ icon, name, chain, price, change }) => (
 
 
 // Separate SidebarContent component for reuse
-const SidebarContent = ({Router}) => (
 
+const SidebarContent = ({ Router, chains, coins }) => {
   
+  return (
+    <div className="p-4 dark:text-white md:text-black text-white">
+      <div className="space-y-4">
+        <div className="flex items-center gap-2 text-lg px-2 py-1 rounded-lg hover:cursor-pointer hover:bg-gray-700">
+          <HomeIcon className="h-5 w-5" />
+          <span>Home</span>
+        </div>
+        <div
+          className="flex items-center gap-2 text-lg px-2 py-1 rounded-lg hover:cursor-pointer hover:bg-gray-700"
+          onClick={() => {
+            Router.push("./profile/address");
+          }}
+        >
+          <UserIcon className="h-5 w-5" />
+          <span>My Profile</span>
+        </div>
+        <div className="flex items-center gap-2 text-lg px-2 py-1 rounded-lg hover:cursor-pointer hover:bg-gray-700">
+          <Layout className="h-5 w-5" />
+          <span>Apps</span>
+        </div>
+        <div className="flex items-center gap-2 text-lg px-2 py-1 rounded-lg hover:cursor-pointer hover:bg-gray-700">
+          <Shield className="h-5 w-5" />
+          <span>Tokens</span>
+        </div>
+        <div className="flex items-center gap-2 text-lg px-2 py-1 rounded-lg hover:cursor-pointer hover:bg-gray-700">
+          <ImageIcon className="h-5 w-5" />
+          <span>NFTs</span>
+        </div>
+      </div>
 
-  <div className="p-4 dark:text-white md:text-black text-white">
-    <div className="space-y-4 ">
-      <div className="flex items-center gap-2 text-lg px-2 py-1 rounded-lg hover:cursor-pointer hover:bg-gray-700">
-        <HomeIcon className="h-5 w-5" />
-        <span>Home</span>
+      <div className="mt-8 dark:border-t-2 dark:border-b-2 border-gray-700 py-2 h-40 overflow-y-auto overflow-visible">
+        <Input
+          placeholder="Filter chain..."
+          className="bg-gray-800 border-gray-700"
+        />
+        <div className="mt-4 space-y-2">
+          {chains?.map((chain, index) => (
+            <div key={chain.id} className="flex items-center gap-2">
+              <img src={chain.image} alt={chain.name} className="w-8 h-8 rounded" />
+              <span>{chain.name}</span>
+            </div>
+          ))}
+        </div>
       </div>
-      <div className="flex items-center gap-2 text-lg px-2 py-1 rounded-lg hover:cursor-pointer hover:bg-gray-700" onClick={()=>{Router.push("./profile/address")}}>
-        <UserIcon className="h-5 w-5" />
-        <span>My Profile</span>
+
+      <div className="mt-8">
+        <div className="flex items-center justify-between">
+          <span>My Bundles</span>
+          <Button variant="ghost" size="sm">
+            <PlusIcon className="h-4 w-4" />
+            Create
+          </Button>
+        </div>
       </div>
-      <div className="flex items-center gap-2 text-lg px-2 py-1 rounded-lg hover:cursor-pointer hover:bg-gray-700">
-      <Layout className="h-5 w-5" />
-       <span>Apps</span>
-      </div>
-      <div className="flex items-center gap-2 text-lg px-2 py-1 rounded-lg hover:cursor-pointer hover:bg-gray-700">
-        <Shield className="h-5 w-5" />
-        <span>Tokens</span>
-      </div>
-      <div className="flex items-center gap-2 text-lg px-2 py-1 rounded-lg hover:cursor-pointer hover:bg-gray-700">
-        <ImageIcon className="h-5 w-5" />
-        <span>NFTs</span>
+
+      <div className="mt-8 dark:border-t-2 dark:border-b-2 border-gray-700 py-2 h-40 overflow-y-auto overflow-visible">
+        <div className="mt-4 space-y-2">
+          {coins?.map((coin, index) => (
+            <div key={coin.id} className="flex items-center gap-2">
+              <img src={coin.image} alt={coin.name} className="w-8 h-8 rounded" />
+              <span>{coin.name}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
+  );
+};
 
-    <div className="mt-8 dark:border-t-2 dark:border-b-2 border-gray-700 py-2 h-40  overflow-y-auto overflow-visible">
-      <Input 
-        placeholder="Filter chain..." 
-        className="bg-gray-800 border-gray-700"
-      />
-      <div className="mt-4 space-y-2 ">
-        {chains.map((chain) => (
-          <div key={chain.id} className="flex items-center gap-2">
-            <div className={`w-4 h-4 ${chain.color} rounded-full`} />
-            <span>{chain.name}</span>
-          </div>
-        ))}
-      </div>
-    </div>
 
-    <div className="mt-8">
-      <div className="flex items-center justify-between">
-        <span>My Bundles</span>
-        <Button variant="ghost" size="sm">
-          <PlusIcon className="h-4 w-4" />
-          Create
-        </Button>
-      </div>
-    </div>
-  </div>
-  
-);
 
 
 
@@ -212,7 +216,8 @@ const Dashboard = () => {
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [currentBaseFee, setCurrentBaseFee] = useState(7);
-
+  const [chains,setChains] = useState([])  
+  const [coins,setCoins] = useState([]) 
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -238,8 +243,78 @@ const handleSubmit = (e) => {
     // Here you can add logic to send the formData to your server or API
 };
 
+
+
+useEffect(()=>{
+
+  const RetrieveData = async () => {
+   
+    const chainsData = localStorage.getItem("chains");
+    
+    if (chainsData) {
+        
+        setChains(JSON.parse(chainsData));
+    } else {
+        
+        const response = await getData("https://cryptolens.onrender.com/chains");
+       
+        if (response.data) {
+            const formattedChains = response.data.map((chain) => ({
+                id: chain.id,
+                name: chain.name,
+                image: chain.image
+            }));
+            
+            
+            setChains(formattedChains);
+            localStorage.setItem("chains", JSON.stringify(formattedChains));
+        }
+    }
+
+   
+    const coinsData = localStorage.getItem("coins");
+
+    if (coinsData) {
+       
+        setCoins(JSON.parse(coinsData));
+    } else {
+        
+        const response1 = await getData("https://cryptolens.onrender.com/coins");
+        
+        if (response1.data) {
+            const formattedCoins = response1.data.map((coin) => ({
+                id: coin.id,
+                name: coin.name,
+                image: coin.image
+            }));
+            
+            
+            setCoins(formattedCoins);
+            localStorage.setItem("coins", JSON.stringify(formattedCoins));
+        }
+    }
+};
+
+// Call RetrieveData
+RetrieveData();
+
+
+const intervalId = setInterval(() => {
+
+    localStorage.removeItem("chains");  
+    localStorage.removeItem("coins");
+    
+  RetrieveData(); 
+},15*60 * 100);
+
+return () => clearInterval(intervalId);
+
+},[])
+
+
+
   return (
-    <div className=" dark:bg-gray-900 text-white overflow-hidden ">
+    <div className=" dark:bg-[#0d0d0d] text-white overflow-hidden ">
       {/* Mobile Header */}
       <div className="lg:hidden flex items-center justify-between p-4 border-b border-gray-800 ">
         <Button 
@@ -267,7 +342,7 @@ const handleSubmit = (e) => {
               <XIcon className="h-6 w-6 " />
               </Button>
             </div>
-            <SidebarContent Router={Router}/>
+            <SidebarContent Router={Router} chains={chains}/>
           </div>
         </div>
       )}
@@ -278,15 +353,17 @@ const handleSubmit = (e) => {
       <div className="flex flex-row">   
         {/* Desktop Sidebar */}
         <div className="hidden lg:block w-64 border-r border-gray-800 h-screen overflow-y-auto ">
-          <SidebarContent Router={Router}/>
+          <SidebarContent Router={Router} chains={chains} coins={coins}/>
         </div>
 
-      
+        
+
+
       {/* Main Content Form */}
-      <div className=" hidden md:flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 w-[60%]">
+      <div className=" hidden md:flex items-center justify-center min-h-screen bg-gray-100 dark:bg-[#0d0d0d] w-[60%]">
             <form
                 onSubmit={handleSubmit}
-                className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full space-y-6"
+                className="bg-white dark:bg-[#0d0d0d] p-8 rounded-lg shadow-lg max-w-md w-full space-y-6"
             >
                 <h2 className="text-2xl font-bold text-gray-800 dark:text-white text-center">Contact Us</h2>
 
@@ -300,7 +377,7 @@ const handleSubmit = (e) => {
                         placeholder="Your Name"
                         value={formData.name}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 rounded-lg border border-gray-400 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 placeholder-gray-400 shadow-lg dark:shadow-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                        className="w-full px-4 py-2 rounded-lg border border-gray-400 dark:border-gray-600 bg-gray-50 dark:bg-[#0d0d0d] text-gray-800 dark:text-gray-200 placeholder-gray-400 shadow-lg dark:shadow-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                     />
                 </div>
 
@@ -314,7 +391,7 @@ const handleSubmit = (e) => {
                         placeholder="you@example.com"
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 rounded-lg border border-gray-400 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 placeholder-gray-400 shadow-lg dark:shadow-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                        className="w-full px-4 py-2 rounded-lg border border-gray-400 dark:border-gray-600 bg-gray-50 dark:bg-[#0d0d0d] text-gray-800 dark:text-gray-200 placeholder-gray-400 shadow-lg dark:shadow-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                     />
                 </div>
 
@@ -328,7 +405,7 @@ const handleSubmit = (e) => {
                         placeholder="Your Address"
                         value={formData.address}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 rounded-lg border border-gray-400 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 placeholder-gray-400 shadow-lg dark:shadow-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                        className="w-full px-4 py-2 rounded-lg border border-gray-400 dark:border-gray-600 bg-gray-50 dark:bg-[#0d0d0d] text-gray-800 dark:text-gray-200 placeholder-gray-400 shadow-lg dark:shadow-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                     />
                 </div>
 
@@ -342,7 +419,7 @@ const handleSubmit = (e) => {
                         placeholder="Your message here..."
                         value={formData.message}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 rounded-lg border border-gray-400 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 placeholder-gray-400 shadow-lg dark:shadow-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                        className="w-full px-4 py-2 rounded-lg border border-gray-400 dark:border-gray-600 bg-gray-50 dark:bg-[#0d0d0d] text-gray-800 dark:text-gray-200 placeholder-gray-400 shadow-lg dark:shadow-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                     />
                 </div>
 
@@ -369,7 +446,7 @@ const handleSubmit = (e) => {
           </div>
                
             {/* Trending Tokens */}
-            <Card className="dark:bg-gray-800 boxShadow mb-2">
+            <Card className="dark:bg-[#0d0d0d] boxShadow mb-2">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-lg font-semibold">Trending Tokens</h2>
@@ -393,7 +470,7 @@ const handleSubmit = (e) => {
             </Card>
 
             {/* Trending Collections */}
-            <Card className=" dark:bg-gray-800 boxShadow">
+            <Card className="dark:bg-[#0d0d0d]  boxShadow">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-lg font-semibold">Trending Collections</h2>
