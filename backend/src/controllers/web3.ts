@@ -111,3 +111,15 @@ export const getCoinByID=async (req: Request, res: Response, next: NextFunction)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(errorResponse);
     }
 }
+
+export const getTokenByID=async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try{
+        const assert_id=req.params.id
+        let response= await getRequest(`addon/748/v1/tickers/${assert_id}`)
+        successResponse.data=response
+        res.status(StatusCodes.OK).json(successResponse);
+    } catch (error: any) {
+        errorResponse.error = error
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(errorResponse);
+    }
+}
