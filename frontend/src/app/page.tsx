@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <>
     <div className="flex flex-col md:flex-row min-h-screen bg-gray-900 text-white">
-        <LeftSidebar/>
+        <LeftSidebar />
         <MainContent  TopTokens={TopTokens}/>
         <RightSidebar TopTokens={TopTokens}/>
     </div>
