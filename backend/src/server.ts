@@ -3,8 +3,11 @@ import express, {Express} from 'express';
 import morgan from 'morgan';
 import routes from './routes/web3';
 import {ServerConfig} from './config/serverConfig';
+import cors from "cors";
 
 const router: Express = express();
+
+router.use(cors({ origin: '*' }));
 
 router.use('/', routes);
 

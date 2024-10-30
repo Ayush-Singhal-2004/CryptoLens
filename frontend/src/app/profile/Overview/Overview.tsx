@@ -11,12 +11,46 @@ import { IoIosArrowForward } from "react-icons/io";
 import ActivityCard from "../ActivityCard";
 import { ScrollArea } from "@/components/ui/scroll-area"
 import NftCard from "../NFTs/NftCard";
+import { useEffect } from "react";
+import getResponse from "@/app/utils/api";
+import { useParams } from "next/navigation";
+import isValidAddress from "@/app/utils/checkAddress";
 
 type OverviewPropType = {
     updateTabState: (updatedState: string) => void 
 }
 
 function Overview({updateTabState}: OverviewPropType) {
+
+    const address = useParams()?.address;
+    console.log(address);
+
+    useEffect(() => {
+        const getTokens = async() => {
+            if(isValidAddress(address as string)) {
+                const response = await getResponse(`tokens/${address}`);
+                console.log(response);
+            }
+            else {
+                //TODO
+            }
+        }
+        // getTokens();
+    }, []);
+
+    useEffect(() => {
+        const getNfts = async() => {
+            if(isValidAddress(address as string)) {
+                const response = await getResponse(`nfts/${address}`);
+                console.log(response);
+            }
+            else {
+                //TODO
+            }
+        }
+        // getTokens();
+    }, []);
+
     return (
         <div className="px-4 flex justify-between py-2 max-sm:flex-col max-sm:items-center">
             <div className="w-[49%] max-sm:w-full">
