@@ -175,7 +175,7 @@ const SidebarContent = ({ Router, chains, coins }) => {
           className="bg-gray-800 border-gray-700"
         />
         <div className="mt-4 space-y-2">
-          {chains?.map((chain, index) => (
+          {chains?.map((chain) => (
             <div key={chain.id} className="flex items-center gap-2">
               <img src={chain.image} alt={chain.name} className="w-8 h-8 rounded" />
               <span>{chain.name}</span>
