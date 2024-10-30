@@ -5,6 +5,7 @@ import { CiCreditCard2, CiViewList } from "react-icons/ci";
 import ActivityCard from "./ActivityCard";
 import ActivityList from "./ActivityList";
 
+
 function Activity() {
 
     const [displayType, setDisplayType] = useState("card");

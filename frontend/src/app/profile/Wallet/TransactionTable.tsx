@@ -14,7 +14,17 @@ import { Card,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
-function TransactionTable() {
+type TransactionTablePropType = {
+    tokens: [any] | null
+}
+
+function TransactionTable({tokens}: TransactionTablePropType) {
+
+    let data = null;
+    if(tokens) {
+        data = tokens.filter((token) => token.token.exchange_rate !== null);
+    }
+
     return (
         <Card className="my-4 shadow-xl mx-4">
                     <CardHeader>
@@ -37,22 +47,29 @@ function TransactionTable() {
                             </TableHeader>  
                             <TableBody>
                                 {
-                                    tokens.map((token, index) => (
-                                        <TableRow key={index} className="text-lg">
+                                    data != null && data.map((data, index) => (
+                                        <TableRow key={index} className="py-5 text-lg">
                                             <TableCell className="font-semibold">
-                                                <div className="flex items-center gap-4 w-72 max-sm:w-32">
-                                                    <img src="https://zapper.xyz/cdn-cgi/image/width=32/https://storage.googleapis.com/zapper-fi-assets/tokens/base/0x8c9037d1ef5c6d1f6816278c7aaf5491d24cd527.png" alt="" />
-                                                    {token.token_name}
+                                                <div className="flex items-center gap-2">
+                                                    {
+                                                        data.token.icon_url ? <img src={data.token.icon_url} alt="" className="h-8 rounded-full" /> : 
+                                                        <div className="rounded-full border p-2">
+                                                            {data.token.name.slice(0,2)}
+                                                        </div>
+                                                    }
+                                                    <p className="whitespace-nowrap overflow-hidden mr-7">{data.token.name}</p>
                                                 </div>
                                             </TableCell>
                                             <TableCell>
-                                                {token.price}
+                                                ${parseFloat(data.token.exchange_rate).toFixed(5)}
                                             </TableCell>
                                             <TableCell>
-                                                {token.balance}
+                                                <p>
+                                                    {(data.value/Math.pow(10, data.token.decimals)).toFixed(4)}
+                                                </p>
                                             </TableCell>
                                             <TableCell className="text-right font-semibold">
-                                                {token.value}
+                                                ${parseFloat((parseFloat(data.token.exchange_rate).toFixed(5)) * ((data.value/Math.pow(10, data.token.decimals)).toFixed(4))).toFixed(3)}
                                             </TableCell>
                                         </TableRow>
                                     ))
@@ -60,46 +77,41 @@ function TransactionTable() {
                             </TableBody>
                         </Table>
                     </CardContent>
-                    <CardFooter className="flex justify-center">
-                        <Button variant={"outline"} className="font-semibold">
-                            Show More
-                        </Button>
-                    </CardFooter>
                 </Card>
     )
 }
 
-const tokens = [
-    {
-      "token_name": "ETH",
-      "price": 1543.16,
-      "balance": 78.3846,
-      "value": 120959.98
-    },
-    {
-      "token_name": "BTC",
-      "price": 3832.73,
-      "balance": 97.4534,
-      "value": 373512.57
-    },
-    {
-      "token_name": "SOL",
-      "price": 2884.37,
-      "balance": 17.7735,
-      "value": 51265.35
-    },
-    {
-      "token_name": "ADA",
-      "price": 579.93,
-      "balance": 45.8467,
-      "value": 26587.88
-    },
-    {
-      "token_name": "MATIC",
-      "price": 2965.09,
-      "balance": 46.1493,
-      "value": 136836.83
-    }
-]  
+// const tokens = [
+//     {
+//       "token_name": "ETH",
+//       "price": 1543.16,
+//       "balance": 78.3846,
+//       "value": 120959.98
+//     },
+//     {
+//       "token_name": "BTC",
+//       "price": 3832.73,
+//       "balance": 97.4534,
+//       "value": 373512.57
+//     },
+//     {
+//       "token_name": "SOL",
+//       "price": 2884.37,
+//       "balance": 17.7735,
+//       "value": 51265.35
+//     },
+//     {
+//       "token_name": "ADA",
+//       "price": 579.93,
+//       "balance": 45.8467,
+//       "value": 26587.88
+//     },
+//     {
+//       "token_name": "MATIC",
+//       "price": 2965.09,
+//       "balance": 46.1493,
+//       "value": 136836.83
+//     }
+// ]  
 
 export default TransactionTable;

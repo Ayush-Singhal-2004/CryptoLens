@@ -1,7 +1,7 @@
 "use client"
 import React, { useState , useEffect } from 'react';
 import { HomeIcon, UserIcon,  ImageIcon, MenuIcon, XIcon, PlusIcon, Router,Layout, Shield } from 'lucide-react';
-import {getData} from "./../lib/getData"
+import {getData} from "../lib/getData"
 import {
   Card,
   CardContent,
@@ -360,15 +360,15 @@ return () => clearInterval(intervalId);
 
 
       {/* Main Content Form */}
-      <div className=" hidden md:flex items-center justify-center min-h-screen bg-gray-100 dark:bg-[#0d0d0d] w-[60%]">
+      {/* <div className=" hidden md:flex items-center justify-center min-h-screen bg-gray-100 dark:bg-[#0d0d0d] w-[60%]">
             <form
                 onSubmit={handleSubmit}
                 className="bg-white dark:bg-[#0d0d0d] p-8 rounded-lg shadow-lg max-w-md w-full space-y-6"
             >
-                <h2 className="text-2xl font-bold text-gray-800 dark:text-white text-center">Contact Us</h2>
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-white text-center">Contact Us</h2> */}
 
                 {/* Name Field */}
-                <div>
+                {/* <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Name</label>
                     <input
                         type="text"
@@ -379,10 +379,10 @@ return () => clearInterval(intervalId);
                         onChange={handleChange}
                         className="w-full px-4 py-2 rounded-lg border border-gray-400 dark:border-gray-600 bg-gray-50 dark:bg-[#0d0d0d] text-gray-800 dark:text-gray-200 placeholder-gray-400 shadow-lg dark:shadow-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                     />
-                </div>
+                </div> */}
 
                 {/* Email Field */}
-                <div>
+                {/* <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
                     <input
                         type="email"
@@ -393,10 +393,10 @@ return () => clearInterval(intervalId);
                         onChange={handleChange}
                         className="w-full px-4 py-2 rounded-lg border border-gray-400 dark:border-gray-600 bg-gray-50 dark:bg-[#0d0d0d] text-gray-800 dark:text-gray-200 placeholder-gray-400 shadow-lg dark:shadow-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                     />
-                </div>
+                </div> */}
 
                 {/* Address Field */}
-                <div>
+                {/* <div>
                     <label htmlFor="address" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Address</label>
                     <input
                         type="text"
@@ -407,10 +407,10 @@ return () => clearInterval(intervalId);
                         onChange={handleChange}
                         className="w-full px-4 py-2 rounded-lg border border-gray-400 dark:border-gray-600 bg-gray-50 dark:bg-[#0d0d0d] text-gray-800 dark:text-gray-200 placeholder-gray-400 shadow-lg dark:shadow-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                     />
-                </div>
+                </div> */}
 
                 {/* Message Field */}
-                <div>
+                {/* <div>
                     <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Message</label>
                     <textarea
                         id="message"
@@ -421,17 +421,17 @@ return () => clearInterval(intervalId);
                         onChange={handleChange}
                         className="w-full px-4 py-2 rounded-lg border border-gray-400 dark:border-gray-600 bg-gray-50 dark:bg-[#0d0d0d] text-gray-800 dark:text-gray-200 placeholder-gray-400 shadow-lg dark:shadow-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                     />
-                </div>
+                </div> */}
 
                 {/* Submit Button */}
-                <button
+                {/* <button
                     type="submit"
                     className="w-full py-3 rounded-lg bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 text-white font-semibold transition duration-300"
                 >
                     Send Message
                 </button>
             </form>
-        </div>
+        </div> */}
 
 
 

@@ -7,13 +7,22 @@ import { Button } from "@/components/ui/button";
 import { LuSend } from "react-icons/lu";
 import NftCard from "../NFTs/NftCard";
 import Activity from "../Activity/Activity";
-import { useState } from "react";
 import TransactionTable from "../Wallet/TransactionTable";
 import { FaChevronUp } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import isValidAddress from "@/app/utils/checkAddress";
+import { useParams } from "next/navigation";
+import getResponse from "@/app/utils/api";
 
 export default function Profile() {
 
     const [tabState, setTabState] = useState("overview");
+    
+    const address = useParams()?.address;
+    console.log(address);
+    
+    const [tokens, setTokens] = useState<[any] | null>(null);
+    const [nfts, setNfts] = useState<[any] | null>(null);
 
     const updateTabState = (updatedState: string) => {
         setTabState(updatedState)
@@ -22,6 +31,42 @@ export default function Profile() {
     const scrollUp = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+
+    useEffect(() => {
+        const getTokens = async() => {
+            if(isValidAddress(address as string)) {
+                const response = await getResponse(`tokens/${address}`);
+                console.log(response);
+                if(response.status == 200 && response.data.data !== "Internal server error") {
+                    console.log(response.data?.data);
+                    setTokens(response.data?.data);
+                }
+            }
+            else {
+                //TODO
+            }
+        }
+        getTokens();
+    }, []);
+
+    useEffect(() => {
+        const getNfts = async() => {
+            if(isValidAddress(address as string)) {
+                const response = await getResponse(`nfts/${address}`);
+                console.log(response);
+                if(response.status == 200 && typeof response.data.data !== "string") {
+                    console.log(response.data.data.items);
+                    setNfts(response.data.data.items);
+                }
+            }
+            else {
+                //TODO
+            }
+        }
+        getNfts();
+    }, [])
+
+    console.log(nfts);
 
     return (
         <div className="overflow-x-hidden">
@@ -66,15 +111,25 @@ export default function Profile() {
                         </TabsList>
                     </div>
                     <TabsContent value="overview">
-                        <Overview updateTabState={updateTabState} />
+                        <Overview 
+                        updateTabState={updateTabState} 
+                        tokens={tokens}
+                        nfts={nfts}
+                        />
                     </TabsContent>
                     <TabsContent value="nft" className="relative">
                         <div className="grid grid-cols-4 max-sm:grid-cols-1 justify-items-center gap-y-5 py-5">
-                            <NftCard />
-                            <NftCard />
-                            <NftCard />
-                            <NftCard />
-                            <NftCard />
+                            {
+                                nfts != null && nfts.map((nft, index) => (
+                                   <div key={index}>
+                                            <NftCard 
+                                            image_url={nft.image_url}
+                                            name={nft.metadata.name}
+                                            value={nft.value}
+                                            />
+                                    </div>
+                                ))
+                            }
                         </div>
                         <div className="md:hidden bg-[#8065dfe7] fixed rounded-full p-2 right-6 bottom-6" onClick={scrollUp}>
                             <FaChevronUp />
@@ -84,7 +139,7 @@ export default function Profile() {
                         <Activity />
                     </TabsContent>
                     <TabsContent value="wallet">
-                        <TransactionTable />
+                        <TransactionTable tokens={tokens} />
                     </TabsContent>
                 </Tabs>
                 </div>

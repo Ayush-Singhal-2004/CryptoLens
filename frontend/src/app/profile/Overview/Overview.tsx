@@ -15,47 +15,15 @@ import { useEffect, useState } from "react";
 import getResponse from "@/app/utils/api";
 import { useParams } from "next/navigation";
 import isValidAddress from "@/app/utils/checkAddress";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type OverviewPropType = {
-    updateTabState: (updatedState: string) => void 
+    updateTabState: (updatedState: string) => void,
+    tokens: [any] | null,
+    nfts: [any] | null
 }
 
-function Overview({updateTabState}: OverviewPropType) {
-
-    const address = useParams()?.address;
-    console.log(address);
-
-    const [tokens, setTokens] = useState<[any] | null>(null);
-
-    useEffect(() => {
-        const getTokens = async() => {
-            if(isValidAddress(address as string)) {
-                const response = await getResponse(`tokens/${address}`);
-                console.log(response);
-                if(response.status == 200) {
-                    console.log(response.data?.data);
-                    setTokens(response.data?.data);
-                }
-            }
-            else {
-                //TODO
-            }
-        }
-        getTokens();
-    }, []);
-
-    useEffect(() => {
-        const getNfts = async() => {
-            if(isValidAddress(address as string)) {
-                const response = await getResponse(`nfts/${address}`);
-                console.log(response);
-            }
-            else {
-                //TODO
-            }
-        }
-        // getTokens();
-    }, []);
+function Overview({updateTabState, tokens, nfts}: OverviewPropType) {
 
     return (
         <div className="px-4 flex justify-between py-2 max-sm:flex-col max-sm:items-center">
@@ -71,8 +39,22 @@ function Overview({updateTabState}: OverviewPropType) {
                     </CardHeader>
                     <CardContent>
                         {
-                            tokens !== null && <DataTable tokens={tokens} />
+                            tokens == null && <div className="flex flex-col gap-4">
+                                <div className="flex items-center gap-5">
+                                    <Skeleton className="w-[40px] h-[40px] rounded-full" />
+                                    <Skeleton className="w-[200px] h-[25px] rounded-full" />
+                                    <Skeleton className="w-[200px] h-[25px] rounded-full" />
+                                </div>
+                                <div className="flex items-center gap-5">
+                                    <Skeleton className="w-[40px] h-[40px] rounded-full" />
+                                    <Skeleton className="w-[200px] h-[25px] rounded-full" />
+                                    <Skeleton className="w-[200px] h-[25px] rounded-full" />
+                                </div>
+                            </div> 
                         }
+                        {
+                            tokens !== null && <DataTable tokens={tokens} />
+                        }       
                     </CardContent>
                     <CardFooter className="flex justify-end">
                         <Button variant={"outline"} className="font-semibold" 
@@ -92,21 +74,31 @@ function Overview({updateTabState}: OverviewPropType) {
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="grid grid-cols-2 grid-rows-1 justify-items-center" id="overview-nft-grid-container">
-                        <div id="overview-grid-container-item">
-                            <NftCard />
-                        </div>
-                        <div id="overview-grid-container-item">
-                            <NftCard />
-                        </div>
-                        <div id="overview-grid-container-item">
-                            <NftCard />
-                        </div>
-                        <div id="overview-grid-container-item">
-                            <NftCard />
-                        </div>
-                        <div id="overview-grid-container-item">
-                            <NftCard />
-                        </div>
+                        {
+                            nfts == null &&  <div className="flex flex-col gap-4">
+                                <div className="flex items-center gap-5">
+                                    <Skeleton className="w-[40px] h-[40px] rounded-full" />
+                                    <Skeleton className="w-[200px] h-[25px] rounded-full" />
+                                    <Skeleton className="w-[200px] h-[25px] rounded-full" />
+                                </div>
+                                <div className="flex items-center gap-5">
+                                    <Skeleton className="w-[40px] h-[40px] rounded-full" />
+                                    <Skeleton className="w-[200px] h-[25px] rounded-full" />
+                                    <Skeleton className="w-[200px] h-[25px] rounded-full" />
+                                </div>
+                            </div> 
+                        }
+                        {
+                             nfts != null && nfts.map((nft, index) => (
+                                <div key={index} className="overview-grid-container-item">
+                                         <NftCard 
+                                         image_url={nft.image_url}
+                                         name={nft.metadata.name}
+                                         value={nft.value}
+                                         />
+                                 </div>
+                             ))
+                        }
                     </CardContent>
                     <CardFooter className="flex justify-end">
                         <Button variant={"outline"} className="font-semibold" 
