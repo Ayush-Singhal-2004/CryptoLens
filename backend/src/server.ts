@@ -7,7 +7,7 @@ import cors from "cors";
 
 const router: Express = express();
 
-router.use(cors({ origin: '*' }));
+router.use(cors());
 
 router.use('/', routes);
 
