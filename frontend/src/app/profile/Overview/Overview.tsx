@@ -11,7 +11,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import ActivityCard from "../ActivityCard";
 import { ScrollArea } from "@/components/ui/scroll-area"
 import NftCard from "../NFTs/NftCard";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import getResponse from "@/app/utils/api";
 import { useParams } from "next/navigation";
 import isValidAddress from "@/app/utils/checkAddress";
@@ -25,17 +25,23 @@ function Overview({updateTabState}: OverviewPropType) {
     const address = useParams()?.address;
     console.log(address);
 
+    const [tokens, setTokens] = useState<[any] | null>(null);
+
     useEffect(() => {
         const getTokens = async() => {
             if(isValidAddress(address as string)) {
                 const response = await getResponse(`tokens/${address}`);
                 console.log(response);
+                if(response.status == 200) {
+                    console.log(response.data?.data);
+                    setTokens(response.data?.data);
+                }
             }
             else {
                 //TODO
             }
         }
-        // getTokens();
+        getTokens();
     }, []);
 
     useEffect(() => {
@@ -64,7 +70,9 @@ function Overview({updateTabState}: OverviewPropType) {
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <DataTable />
+                        {
+                            tokens !== null && <DataTable tokens={tokens} />
+                        }
                     </CardContent>
                     <CardFooter className="flex justify-end">
                         <Button variant={"outline"} className="font-semibold" 
