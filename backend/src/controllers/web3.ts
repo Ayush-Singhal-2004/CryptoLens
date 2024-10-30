@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { chains } from "../constants/constant";
 import { StatusCodes } from "http-status-codes";
+import {Coins,TrendingTokens} from "../utils/types"
 import {error as errorResponse ,success as successResponse,postRequest,getRequest} from "../utils/common"
 
 
@@ -50,20 +51,34 @@ export const getTransactionHistory = async (req: Request, res: Response, next: N
     }
 };
 
-interface trendingcoinsResponse{
-    id: string,
-    name: string,
-    symbol: string,
-    rank: number,
-    image:string,
-    is_new: boolean,
-    is_active: boolean,
-    type: string
-}
-export const getTrendingCoins= async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const getTrendingTokens= async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        let response= await getRequest("addon/748/v1/tickers")
+        let trendingTokens: Array<TrendingTokens> = []
+        response.slice(0, 10).forEach((coin:any)=>{
+            trendingTokens.push({
+                id: coin.id,
+                name: coin.name,
+                symbol: coin.symbol,
+                rank: coin.rank,
+                image: `https://static.coinpaprika.com/coin/${coin.id}/logo.png`,
+                price: coin.quotes.USD.price,
+                percent_change_15m: coin.quotes.USD.percent_change_15m,
+            });
+        })
+        successResponse.data=trendingTokens
+        res.status(StatusCodes.OK).json(successResponse);
+    } catch (error: any) {
+        errorResponse.error = error
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(errorResponse);
+    }
+};
+
+
+export const getCoins= async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         let response= await getRequest("addon/748/v1/coins")
-        let trendingCoins: Array<trendingcoinsResponse> = []
+        let trendingCoins: Array<Coins> = []
         response.slice(0, 10).forEach((coin:any)=>{
             trendingCoins.push({
                 id: coin.id,
@@ -83,6 +98,7 @@ export const getTrendingCoins= async (req: Request, res: Response, next: NextFun
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(errorResponse);
     }
 };
+
 
 export const getCoinByID=async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try{
