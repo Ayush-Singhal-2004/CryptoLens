@@ -69,7 +69,7 @@ export default function Profile() {
     console.log(nfts);
 
     return (
-        <div className="overflow-x-hidden">
+        <div className="overflow-x-hidden bg-[#111827]">
             <div>
                 <div className="border-b dark:border-b-[#262626] mx-4 py-5 flex justify-between max-sm:flex-col max-sm:gap-5">
                     <div className="flex flex-col gap-3">

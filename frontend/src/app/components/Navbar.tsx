@@ -15,7 +15,7 @@ function Navbar() {
     }
 
     return (
-        <nav className="flex border-b dark:border-b-[#262626] shadow-md justify-between px-6 py-3">
+        <nav className="flex border-b dark:border-gray-700 dark:bg-gray-900 shadow-md justify-between px-6 py-3">
             <div className="flex gap-[5vw]">
                 <h1 className="text-3xl font-bold">CryptoLens</h1>
                 <Input type="text" placeholder="Search accounts" className="w-[32vw] shadow-sm" />
