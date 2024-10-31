@@ -21,7 +21,9 @@ function Navbar() {
                 {/* <Input type="text" placeholder="Search accounts" className="w-[32vw] shadow-sm" /> */}
             </div>
             <div className="flex gap-3">
-                <Button variant="default" className="font-semibold">Connect Wallet</Button>
+                <Button variant="default" className="font-semibold dark:bg-[#1F2937] dark:text-white">
+                    Connect Wallet
+                </Button>
                 <Button variant="ghost" onClick={changeTheme}>
                     {
                         theme == "dark" ? <MdOutlineDarkMode /> : <MdOutlineLightMode />

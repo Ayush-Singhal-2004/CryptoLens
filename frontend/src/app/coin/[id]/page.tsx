@@ -25,7 +25,8 @@ import {
   Twitter,
   X,
   RssIcon,
-  Megaphone
+  Megaphone,
+  Coins
 } from "lucide-react"
 import { useEffect, useState } from "react"
 import getResponse from "@/app/utils/api"
@@ -42,7 +43,6 @@ function formatNumber(num: number, style: 'currency' | 'decimal' = 'decimal', mi
   })
   return formatter.format(num)
 }
-
 function formatPercentage(value: number) {
   const formatted = Math.abs(value).toFixed(2)
   return (
@@ -139,7 +139,7 @@ export default function Component() {
               </div>
               <div className="flex flex-wrap gap-2">
                 {Coin?.tags.map((tag) => (
-                  <Badge key={tag.id} variant="secondary" className=" text-xl dark:bg-gray-800 dark:text-gray-200">
+                  <Badge key={tag.id} variant="secondary" className=" text-xl dark:bg-gray-800 dark:text-gray-200 shadow-lg">
                     {tag.name}
                   </Badge>
                 ))}
@@ -151,7 +151,8 @@ export default function Component() {
           <Card className="border-2 mb-6 ">
             <CardHeader className="pb-2">
               <div className="flex items-center gap-2">
-                <Bitcoin className="w-8 h-8 text-orange-500" />
+                {/* <Bitcoin className="w-8 h-8 text-orange-500" /> */}
+                <Coins className="w-8 h-8 text-orange-500" />
                 <div>
                   <CardTitle className="text-2xl dark:text-white">Current Price</CardTitle>
                   <CardDescription className="dark:text-gray-400">Live Bitcoin Price</CardDescription>
