@@ -120,6 +120,42 @@ export interface TokenQuoteUSD {
     image: string;
   }
   
+  export interface ExchangeQuote {
+    reported_volume_24h: number;
+    adjusted_volume_24h: number;
+    reported_volume_7d: number;
+    adjusted_volume_7d: number;
+    reported_volume_30d: number;
+    adjusted_volume_30d: number;
+  }
+  
+  export interface ExchangeLinks {
+    twitter: string[];
+    website: string[];
+  }
+  
+ export interface Exchange {
+    id: string;
+    name: string;
+    description: string;
+    active: boolean;
+    website_status: boolean;
+    api_status: boolean;
+    message: string;
+    links: ExchangeLinks;
+    markets_data_fetched: boolean;
+    adjusted_rank: number | null;
+    reported_rank: number | null;
+    currencies: number;
+    markets: number;
+    fiats: string[];
+    quotes: {
+      USD: ExchangeQuote;
+    };
+    last_updated: string;
+    sessions_per_month?: number;
+    confidence_score: number;
+  }
 
   interface Attribute {
     trait_type: string;

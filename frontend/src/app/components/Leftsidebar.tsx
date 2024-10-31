@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, Layers, User } from "lucide-react";
+import { ChevronLeft, Layers, User,HandCoins } from "lucide-react";
 import { useEffect, useState } from "react";
 import getResponse from "../utils/api";
 import { useRouter } from 'next/navigation';
@@ -42,12 +42,6 @@ function LeftSidebar() {
         }
     }, [hasMounted]);
 
-    const handleCoinButton = ({ coin_id }: { coin_id: string }) => {
-        console.log("Clicked on coin", coin_id);
-        if (typeof window === "undefined") return null;
-        //Router.push(`/coin/${coin_id}`);
-    };
-
     const handleMyProfileClick = () => {
         const address = localStorage.getItem("address");
         if(address) {
@@ -58,6 +52,9 @@ function LeftSidebar() {
 
     const handleTopCoinClick = (id: string) => {
         router.push(`/coin/${id}`);
+    }
+    const handleExhangesClick=()=>{
+        router.push(`/exchanges`);
     }
 
     return (
@@ -72,6 +69,7 @@ function LeftSidebar() {
                 {[
                     { icon: <User className="h-5 w-5" />, label: "My Profile", handleClick: handleMyProfileClick },
                     { icon: <Layers className="h-5 w-5" />, label: "Tokens" },
+                    { icon: <HandCoins className="h-5 w-5" />, label: "Exhanges", handleClick: handleExhangesClick },
                 ].map((item, index) => (
                     <Button key={index} variant="ghost" className="w-full justify-start mb-2 hover:bg-gray-400 dark:hover:bg-gray-700 dark:bg-[#1D2735]" onClick={item?.handleClick}>
                         {item.icon}

@@ -33,6 +33,7 @@ import getResponse from "@/app/utils/api"
 import { useParams } from "next/navigation"
 import {Coin,Token} from "../../utils/types"
 import Image from "next/image"
+import LeftSidebar from "@/app/components/Leftsidebar"
 // Utility functions remain the same
 function formatNumber(num: number, style: 'currency' | 'decimal' = 'decimal', minimumFractionDigits = 2) {
   const formatter = new Intl.NumberFormat('en-US', {
@@ -109,8 +110,12 @@ export default function Component() {
   ]
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
-      <div className="p-4 space-y-6">
+    <>
+    <div className="min-h-screen flex bg-white dark:bg-gray-900 transition-colors duration-300">
+      <div>
+      <LeftSidebar />
+      </div>
+      <div className="p-4 ml-10 space-y-6">
         <div className="max-w-7xl mx-auto">
           {/* Hero Section */}
           <div className="flex flex-col md:flex-row items-start gap-6 mb-8">
@@ -155,7 +160,7 @@ export default function Component() {
                 <Coins className="w-8 h-8 text-orange-500" />
                 <div>
                   <CardTitle className="text-2xl dark:text-white">Current Price</CardTitle>
-                  <CardDescription className="dark:text-gray-400">Live Bitcoin Price</CardDescription>
+                  <CardDescription className="dark:text-gray-400">Live {Coin?.symbol} Price</CardDescription>
                 </div>
               </div>
             </CardHeader>
@@ -333,5 +338,7 @@ export default function Component() {
         </div>
       </div>
     </div>
+    </>
+    
   )
 }
