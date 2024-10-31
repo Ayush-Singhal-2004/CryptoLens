@@ -7,6 +7,8 @@ import { MdOutlineLightMode } from "react-icons/md";
 import { useTheme } from "next-themes";
 import { ethers } from "ethers";
 import { useEffect, useState } from "react";
+import { House } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 declare global {
     interface Window {
@@ -18,6 +20,7 @@ function Navbar() {
 
     const { theme, setTheme } = useTheme();
     const [connectWalletFlag, setConnectWalletFlag] = useState(true);
+    const router = useRouter();
 
     useEffect(() => {
         if(localStorage.getItem("address")) {
@@ -36,6 +39,10 @@ function Navbar() {
         localStorage.setItem("address", signer.address);
     }
 
+    const redirectToHome = () => {
+        router.push("/");
+    }
+
     return (
         <nav className="flex border-b dark:border-gray-700 dark:bg-gray-900 shadow-md justify-between px-6 py-3">
             <div className="flex gap-[5vw]">
@@ -49,6 +56,9 @@ function Navbar() {
                         Connect Wallet
                     </Button>
                 }
+                <Button variant="ghost" onClick={redirectToHome}>
+                    <House />
+                </Button>
                 <Button variant="ghost" onClick={changeTheme}>
                     {
                         theme == "dark" ? <MdOutlineDarkMode /> : <MdOutlineLightMode />
