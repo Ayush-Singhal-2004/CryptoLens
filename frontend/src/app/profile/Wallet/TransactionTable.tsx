@@ -15,10 +15,18 @@ import { Card,
 import { WalletToken } from "@/app/utils/types";
 
 type TransactionTablePropType = {
-    tokens: [WalletToken] | null
+    tokens: [WalletToken] | any
 }
 
 function TransactionTable({tokens}: TransactionTablePropType) {
+
+    if(tokens?.message) {
+        return ( 
+            <div className="h-[70vh]">
+                <h1 className="flex justify-center text-lg font-semibold py-5">You don't have any tokens</h1>
+            </div>
+        )
+    }
 
     let data = null;
     if(tokens) {

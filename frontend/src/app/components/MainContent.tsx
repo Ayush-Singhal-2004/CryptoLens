@@ -10,7 +10,10 @@ import { ArrowRightLeft, BarChart3, ChevronLeft, ChevronRight, Layers, PieChart,
 import { TrendingTokens } from "../utils/types";
 import InputField from "./InputField";
 
-function MainContent({TopTokens}:{TopTokens:TrendingTokens[] | null}) {
+function MainContent({TopTokens, updateToast}: {
+    TopTokens:TrendingTokens[] | null,
+    updateToast: (title: string, description: string) => void
+}) {
     return (
         <main className="flex-1 p-4 md:p-8">
             <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -21,13 +24,7 @@ function MainContent({TopTokens}:{TopTokens:TrendingTokens[] | null}) {
                     <p className="text-lg text-gray-500 mb-8">
                         Your all-in-one solution for navigating the decentralized finance landscape.
                     </p>
-
-
-                    <InputField />
-
-
-
-
+                    <InputField updateToast={updateToast} />
                     {/* <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-semibold transition-all duration-200 ease-in-out transform hover:scale-105">
                         Connect Wallet
                     </Button> */}
@@ -35,7 +32,7 @@ function MainContent({TopTokens}:{TopTokens:TrendingTokens[] | null}) {
                 <div className="mt-12 flex justify-center">
                     <div className="relative w-full max-w-2xl">
                         <div className="absolute inset-0 bg-gradient-to-r from-teal-400 via-blue-500 to-purple-600 rounded-lg filter blur-3xl opacity-30"></div>
-                        <Card className="relative bg-gray-800 border-gray-700">
+                        <Card className="relative dark:bg-gray-800 dark:border-gray-700 shadow-xl">
                             <CardHeader>
                                 <CardTitle>Portfolio Overview</CardTitle>
                                 <CardDescription>Your assets across chains and protocols</CardDescription>
@@ -43,7 +40,7 @@ function MainContent({TopTokens}:{TopTokens:TrendingTokens[] | null}) {
                             <CardContent>
                                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                                 {Array.isArray(TopTokens) && TopTokens.slice(0, 6).map((asset) => (
-                                    <div key={asset?.name} className="bg-gray-700 p-3 rounded-lg">
+                                    <div key={asset?.name} className="dark:bg-gray-700 p-3 rounded-lg shadow-xl">
                                         <div className="text-sm text-gray-400">{asset?.name}</div>
                                         <div className="text-lg font-semibold">{asset?.price.toLocaleString()}</div>
                                     </div>
@@ -76,15 +73,15 @@ function MainContent({TopTokens}:{TopTokens:TrendingTokens[] | null}) {
                             icon: <ArrowRightLeft className="w-10 h-10 text-purple-400" />,
                         },
                     ].map((feature, index) => (
-                        <Card key={index} className="bg-gray-800 border-gray-700 hover:border-gray-600 transition-all duration-200 ease-in-out">
+                        <Card key={index} className="dark:bg-gray-800 dark:border-gray-700 dark:hover:border-gray-600 hover:border-gray-300 transition-all duration-200 ease-in-out shadow-xl">
                             <CardHeader>
-                                <div className="w-14 h-14 rounded-full bg-gray-700 flex items-center justify-center mb-4">
+                                <div className="w-14 h-14 rounded-full dark:bg-gray-700 flex items-center justify-center mb-4">
                                     {feature.icon}
                                 </div>
                                 <CardTitle>{feature.title}</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-gray-400">{feature.description}</p>
+                                <p className="text-gray-500 dark:text-gray-400">{feature.description}</p>
                             </CardContent>
                         </Card>
                     ))}

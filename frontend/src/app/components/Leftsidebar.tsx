@@ -1,4 +1,5 @@
 "use client";
+
 import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, Layers, User,HandCoins } from "lucide-react";
@@ -7,8 +8,13 @@ import getResponse from "../utils/api";
 import { useRouter } from 'next/navigation';
 import { Chain, Coin } from "../utils/types";
 import Image from 'next/image';
+import { Skeleton } from "@/components/ui/skeleton";
 
-function LeftSidebar() {
+type LeftSidebarPropType = {
+    updateToast: (title: string, description: string) => void
+}
+
+function LeftSidebar({updateToast}: LeftSidebarPropType) {
     const router = useRouter();
 
     const [leftSidebarOpen, setLeftSidebarOpen] = useState(false);
@@ -45,9 +51,13 @@ function LeftSidebar() {
     const handleMyProfileClick = () => {
         const address = localStorage.getItem("address");
         if(address) {
-
+            router.push(`/profile/${address}`);
+        }
+        else {
+            updateToast("Connect Wallet!!", "You can view your profile after connecting your wallet.")
         }
     }
+    
     if (!hasMounted) return null;
 
     const handleTopCoinClick = (id: string) => {
@@ -79,6 +89,20 @@ function LeftSidebar() {
             </nav>
             <div className="p-4 border-t dark:border-gray-700 border-gray-300">
                 <h3 className="text-xl font-semibold mb-2">Supported Chains</h3>
+                {
+                    Chains == null && <div className="flex flex-col gap-4">
+                        <div className="flex items-center gap-5">
+                            <Skeleton className="w-[40px] h-[40px] rounded-full" />
+                            <Skeleton className="w-[200px] h-[25px] rounded-full" />
+                            <Skeleton className="w-[200px] h-[25px] rounded-full" />
+                        </div>
+                        <div className="flex items-center gap-5">
+                            <Skeleton className="w-[40px] h-[40px] rounded-full" />
+                            <Skeleton className="w-[200px] h-[25px] rounded-full" />
+                            <Skeleton className="w-[200px] h-[25px] rounded-full" />
+                        </div>
+                    </div> 
+                }
                 {Chains?.map((chain, index) => (
                     <Button key={index} variant="ghost" className="w-full justify-start mb-2 hover:bg-gray-400 dark:hover:bg-gray-700 dark:bg-[#1D2735]">
                         <div className="flex-shrink-0">
@@ -90,6 +114,20 @@ function LeftSidebar() {
             </div>
             <div className="p-4 border-t dark:border-gray-700 border-gray-300">
                 <h3 className="text-xl font-semibold mb-2">Top Coins</h3>
+                {
+                    Coins == null && <div className="flex flex-col gap-4">
+                        <div className="flex items-center gap-5">
+                            <Skeleton className="w-[40px] h-[30px] rounded-full" />
+                            <Skeleton className="w-[200px] h-[25px] rounded-full" />
+                            <Skeleton className="w-[200px] h-[25px] rounded-full" />
+                        </div>
+                        <div className="flex items-center gap-5">
+                            <Skeleton className="w-[40px] h-[30px] rounded-full" />
+                            <Skeleton className="w-[200px] h-[25px] rounded-full" />
+                            <Skeleton className="w-[200px] h-[25px] rounded-full" />
+                        </div>
+                    </div> 
+                }
                 {Coins?.map((coin, index) => (
                     <Button key={index} variant="ghost" className="w-full justify-start mb-2 hover:bg-gray-400 dark:bg-[#1D2735] dark:hover:bg-gray-700" onClick={() => handleTopCoinClick(coin?.id)}>
                         <div className="flex-shrink-0">

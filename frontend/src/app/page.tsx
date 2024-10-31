@@ -8,8 +8,12 @@ import Footer from "./components/Footer"
 import { useEffect, useState } from "react"
 import getResponse from "./utils/api"
 import { TrendingTokens } from "./utils/types"
+import { Toaster } from "@/components/ui/toaster"
+import { useToast } from "@/hooks/use-toast"
+
 export default function Home() {
     const [TopTokens, setTopTokens] = useState<TrendingTokens[] | null>(null);
+    const { toast } = useToast();
 
     const getTopTokens=async() => {
         const response = await getResponse(`trendingtokens`);
@@ -19,14 +23,25 @@ export default function Home() {
             setTopTokens(response.data?.data);
         }
     }
+
+    const updateToast = (title: string, description: string) => {
+        toast({
+            title: title,
+            description: description
+        })
+    }
+
     useEffect(()=>{
         getTopTokens()
     },[])
+
+
   return (
     <>
     <div className="flex flex-col md:flex-row min-h-screen dark:bg-gray-900 text-white">
-        <LeftSidebar />
-        <MainContent  TopTokens={TopTokens}/>
+        <LeftSidebar updateToast={updateToast} />
+        <MainContent  TopTokens={TopTokens} updateToast={updateToast} />
+        <Toaster />
         <RightSidebar TopTokens={TopTokens}/>
     </div>
      {/* Footer */}
