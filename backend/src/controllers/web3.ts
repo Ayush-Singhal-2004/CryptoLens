@@ -123,3 +123,14 @@ export const getTokenByID=async (req: Request, res: Response, next: NextFunction
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(errorResponse);
     }
 }
+
+export const getExchanges=async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try{
+        let response= await getRequest("addon/748/v1/exchanges")
+        successResponse.data=response.slice(0,20)
+        res.status(StatusCodes.OK).json(successResponse);
+    } catch (error: any) {
+        errorResponse.error = error
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(errorResponse);
+    }
+}
