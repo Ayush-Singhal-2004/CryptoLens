@@ -41,8 +41,13 @@ export default function ExchangeList() {
           description: description
       })
   }
+
+  console.log("EXCHANGE");
+  console.log(exchanges);
+  
+  
     return (
-        <div className="bg-gray-900 flex">
+        <div className="dark:bg-gray-900 flex min-h-screen">
             <div >
                 <LeftSidebar updateToast={updateToast} />
             </div>
@@ -51,7 +56,7 @@ export default function ExchangeList() {
           <h1 className="text-2xl font-bold mb-6">Cryptocurrency Exchanges</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {exchanges.map((exchange) => (
-              <Card key={exchange.id} className="hover:shadow-lg transition-shadow duration-300">
+              <Card key={exchange.id} className="shadow-xl transition-shadow duration-300 ">
                 <CardHeader>
                   <div className="flex items-center space-x-4">
                     <img
@@ -132,18 +137,24 @@ export default function ExchangeList() {
                 </CardContent>
                 <CardFooter className="flex justify-between">
                   <div className="flex space-x-2">
-                    <Button variant="outline" size="icon" asChild>
-                      <a href={exchange.twitter} target="_blank" rel="noopener noreferrer">
-                        <Twitter className="h-4 w-4" />
-                        <span className="sr-only">Twitter</span>
-                      </a>
-                    </Button>
-                    <Button variant="outline" size="icon" asChild>
-                      <a href={exchange.website} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="h-4 w-4" />
-                        <span className="sr-only">Website</span>
-                      </a>
-                    </Button>
+                    {
+                      exchange.links.twitter && 
+                      <Button variant="outline" size="icon" asChild>
+                        <a href={exchange.links.twitter[0]} target="_blank" rel="noopener noreferrer">
+                          <Twitter className="h-4 w-4" />
+                          <span className="sr-only">Twitter</span>
+                        </a>
+                      </Button>
+                    }
+                    {
+                      exchange.links.website && 
+                      <Button variant="outline" size="icon" asChild>
+                        <a href={exchange.links.website[0]} target="_blank" rel="noopener noreferrer">
+                          <ExternalLink className="h-4 w-4" />
+                          <span className="sr-only">Website</span>
+                        </a>
+                      </Button>
+                    }
                   </div>
                   <Button variant="secondary">More Details</Button>
                 </CardFooter>
