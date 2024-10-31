@@ -53,7 +53,7 @@ function LeftSidebar() {
     return (
         <aside className={`fixed md:static inset-y-0 left-0 z-50 w-64 bg-[#1f2937e2] transform ${leftSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 transition-transform duration-200 ease-in-out`}>
             <div className="flex items-center justify-between p-4 border-b border-gray-700">
-                <h2 className="text-xl font-bold">0v.dev</h2>
+                <h2 className="text-xl font-bold">Menu</h2>
                 <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setLeftSidebarOpen(false)}>
                     <ChevronLeft className="h-6 w-6" />
                 </Button>
@@ -74,7 +74,7 @@ function LeftSidebar() {
                 {Chains?.map((chain, index) => (
                     <Button key={index} variant="ghost" className="w-full justify-start mb-2 hover:bg-gray-900">
                         <div className="flex-shrink-0">
-                            <Image src={chain.image} alt="Chain Logo" width={20} height={20} className="w-5 h-5 md:w-5 md:h-5" />
+                            <img src={chain.image} alt="Chain Logo"  className="w-5 h-5 md:w-5 md:h-5" />
                         </div>
                         <span className="text-[22px]">{chain.name}</span>
                     </Button>
