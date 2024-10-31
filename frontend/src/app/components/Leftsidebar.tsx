@@ -78,7 +78,6 @@ function LeftSidebar({updateToast}: LeftSidebarPropType) {
             <nav className="p-4">
                 {[
                     { icon: <User className="h-5 w-5" />, label: "My Profile", handleClick: handleMyProfileClick },
-                    { icon: <Layers className="h-5 w-5" />, label: "Tokens" },
                     { icon: <HandCoins className="h-5 w-5" />, label: "Exhanges", handleClick: handleExhangesClick },
                 ].map((item, index) => (
                     <Button key={index} variant="ghost" className="w-full justify-start mb-2 hover:bg-gray-400 dark:hover:bg-gray-700 dark:bg-[#1D2735]" onClick={item?.handleClick}>
