@@ -10,7 +10,7 @@ import { TrendingTokens } from "../utils/types";
 function RightSidebar({TopTokens}:{TopTokens:TrendingTokens[] | null}) {
     const [rightSidebarOpen, setRightSidebarOpen] = useState(false)
     return (
-        <aside className={`fixed md:w-96 md:static inset-y-0 right-0 z-50 bg-[#1f2937e2] w-64 transform ${rightSidebarOpen ? 'translate-x-0' : 'translate-x-full'} md:translate-x-0 transition-transform duration-200 ease-in-out`}>
+        <aside className={`fixed md:w-80 md:static inset-y-0 right-0 z-50 dark:bg-[#1f2937e2] w-64 transform ${rightSidebarOpen ? 'translate-x-0' : 'translate-x-full'} md:translate-x-0 transition-transform duration-200 ease-in-out text-black dark:text-white`}>
             <div className="flex items-center justify-between p-4 border-b border-gray-700">
             <h2 className="text-xl font-bold">Top Tokens</h2>
             <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setRightSidebarOpen(false)}>

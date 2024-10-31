@@ -51,7 +51,7 @@ function LeftSidebar() {
     if (!hasMounted) return null;
 
     return (
-        <aside className={`fixed md:static inset-y-0 left-0 z-50 w-64 bg-[#1f2937e2] transform ${leftSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 transition-transform duration-200 ease-in-out`}>
+        <aside className={`fixed md:static inset-y-0 left-0 z-50 w-64 dark:bg-[#1f2937e2] transform ${leftSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 transition-transform duration-200 ease-in-out text-black dark:text-white`}>
             <div className="flex items-center justify-between p-4 border-b border-gray-700">
                 <h2 className="text-xl font-bold">Menu</h2>
                 <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setLeftSidebarOpen(false)}>

@@ -8,21 +8,29 @@ import { ScrollArea } from "@radix-ui/react-scroll-area"
 import { useTheme } from "next-themes";
 import { ArrowRightLeft, BarChart3, ChevronLeft, ChevronRight, Layers, PieChart, User } from "lucide-react";
 import { TrendingTokens } from "../utils/types";
+import InputField from "./InputField";
 
 function MainContent({TopTokens}:{TopTokens:TrendingTokens[] | null}) {
     return (
         <main className="flex-1 p-4 md:p-8">
             <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
                 <div className="text-center">
-                    <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-teal-400 via-blue-500 to-purple-600 text-transparent bg-clip-text mb-6">
-                        Track, Manage, and Maximize Your Web3 Portfolio
+                    <h1 className="text-4xl sm:text-5xl md:text-5xl font-extrabold bg-gradient-to-r from-teal-400 via-blue-500 to-purple-600 text-transparent bg-clip-text mb-6">
+                        Focus on What Matters: Your OnChain Portfolio and Insights
                     </h1>
-                    <p className="text-xl text-gray-400 mb-8">
-                        Your all-in-one solution for navigating the decentralized finance landscape
+                    <p className="text-lg text-gray-500 mb-8">
+                        Your all-in-one solution for navigating the decentralized finance landscape.
                     </p>
-                    <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-semibold transition-all duration-200 ease-in-out transform hover:scale-105">
+
+
+                    <InputField />
+
+
+
+
+                    {/* <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-semibold transition-all duration-200 ease-in-out transform hover:scale-105">
                         Connect Wallet
-                    </Button>
+                    </Button> */}
                 </div>
                 <div className="mt-12 flex justify-center">
                     <div className="relative w-full max-w-2xl">

@@ -18,7 +18,7 @@ function Navbar() {
         <nav className="flex border-b dark:border-gray-700 dark:bg-gray-900 shadow-md justify-between px-6 py-3">
             <div className="flex gap-[5vw]">
                 <h1 className="text-3xl font-bold">CryptoLens</h1>
-                <Input type="text" placeholder="Search accounts" className="w-[32vw] shadow-sm" />
+                {/* <Input type="text" placeholder="Search accounts" className="w-[32vw] shadow-sm" /> */}
             </div>
             <div className="flex gap-3">
                 <Button variant="default" className="font-semibold">Connect Wallet</Button>
