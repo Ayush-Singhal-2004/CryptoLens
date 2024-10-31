@@ -1,19 +1,14 @@
 "use client";
 import * as React from "react"
-import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { MdOutlineDarkMode } from "react-icons/md";
-import { MdOutlineLightMode } from "react-icons/md";
-import { useTheme } from "next-themes";
-import { ChevronLeft, ChevronRight, Layers, User } from "lucide-react";
+import {ChevronRight} from "lucide-react";
 import { useEffect,useState } from "react";
-import getResponse from "../utils/api";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import Image from 'next/image';
+import { TrendingTokens } from "../utils/types";
 
-function RightSidebar({TopTokens}) {
+function RightSidebar({TopTokens}:{TopTokens:TrendingTokens[] | null}) {
     const [rightSidebarOpen, setRightSidebarOpen] = useState(false)
-    
-
     return (
         <aside className={`fixed md:w-96 md:static inset-y-0 right-0 z-50 bg-[#1f2937e2] w-64 transform ${rightSidebarOpen ? 'translate-x-0' : 'translate-x-full'} md:translate-x-0 transition-transform duration-200 ease-in-out`}>
             <div className="flex items-center justify-between p-4 border-b border-gray-700">
@@ -28,9 +23,11 @@ function RightSidebar({TopTokens}) {
                     <div key={index} className="flex justify-between items-center mb-4">
                         <div className="flex items-center">
                             <div className="flex-shrink-0 pr-2">
-                                <img
+                                <Image
                                     src={token?.image}
                                     alt="Bitcoin Logo"
+                                    width={20}
+                                    height={20}
                                     className="w-5 h-5 md:w-5 md:h-5"
                                 />
                             </div>

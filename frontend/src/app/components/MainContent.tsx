@@ -7,8 +7,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ScrollArea } from "@radix-ui/react-scroll-area"
 import { useTheme } from "next-themes";
 import { ArrowRightLeft, BarChart3, ChevronLeft, ChevronRight, Layers, PieChart, User } from "lucide-react";
+import { TrendingTokens } from "../utils/types";
 
-function MainContent({TopTokens}) {
+function MainContent({TopTokens}:{TopTokens:TrendingTokens[] | null}) {
     return (
         <main className="flex-1 p-4 md:p-8">
             <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -33,15 +34,12 @@ function MainContent({TopTokens}) {
                             </CardHeader>
                             <CardContent>
                                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                                    {TopTokens?.slice(0,6).map((asset) => (
-                                        <div key={asset?.name} className="bg-gray-700 p-3 rounded-lg">
-                                            <div className="text-sm text-gray-400">{asset?.name}</div>
-                                            <div className="text-lg font-semibold">{asset?.price.toLocaleString()}</div>
-                                            <div className={asset?.percent_change_15m>=0 ? "text-green-400" : "text-red-400"}>
-                                            {asset?.percent_change_15m>=0 ?"+":""}{asset?.percent_change_15m}
-                                            </div>
-                                        </div>
-                                    ))}
+                                {Array.isArray(TopTokens) && TopTokens.slice(0, 6).map((asset) => (
+                                    <div key={asset?.name} className="bg-gray-700 p-3 rounded-lg">
+                                        <div className="text-sm text-gray-400">{asset?.name}</div>
+                                        <div className="text-lg font-semibold">{asset?.price.toLocaleString()}</div>
+                                    </div>
+                                ))}
                                 </div>
                             </CardContent>
                         </Card>

@@ -30,7 +30,8 @@ import {
 import { useEffect, useState } from "react"
 import getResponse from "@/app/utils/api"
 import { useParams } from "next/navigation"
-
+import {Coin,Token} from "../../utils/types"
+import Image from "next/image"
 // Utility functions remain the same
 function formatNumber(num: number, style: 'currency' | 'decimal' = 'decimal', minimumFractionDigits = 2) {
   const formatter = new Intl.NumberFormat('en-US', {
@@ -54,8 +55,8 @@ function formatPercentage(value: number) {
 
 export default function Component() {
     const params = useParams()
-    const [Coin, setCoin] =useState<any | null>(null);
-    const [Token, setToken] =useState<any | null>(null);
+    const [Coin, setCoin] =useState<Coin | null>(null);
+    const [Token, setToken] =useState<Token | null>(null);
     const getCoin = async() => {
         const response = await getResponse(`coin/${params.id}`);
         console.log(response);
@@ -77,9 +78,13 @@ export default function Component() {
       }
   }
   useEffect(()=>{
-      getCoin()
-      getToken()
-  },[])
+    const fetchData = async () => {
+      await getCoin();  // Fetch coin data
+      await getToken(); // Fetch token data
+  };
+
+  fetchData();
+  },[params.id]);
     const LinkTypes={
         "website":  Globe,
         "source_code":Github,
@@ -110,11 +115,12 @@ export default function Component() {
           {/* Hero Section */}
           <div className="flex flex-col md:flex-row items-start gap-6 mb-8">
             <div className="flex-shrink-0">
-              <img
-                src={Coin?.logo}
-                alt={`${Coin?.name} Logo`}
-                className="w-24 h-24 md:w-32 md:h-32"
-              />
+              {Coin?.logo && <Image
+                src={Coin.logo}
+                alt={`${Coin.name} Logo`}
+                width={128}
+                height={128}
+              />}
             </div>
             <div className="space-y-4 flex-1">
               <div className="space-y-2">
@@ -156,10 +162,10 @@ export default function Component() {
               <div className="flex flex-col md:flex-row md:items-end gap-4">
                 <div>
                   <p className="text-4xl font-bold dark:text-white">
-                    {formatNumber(Token?.quotes?.USD.price, 'currency')}
+                    {formatNumber(Token?.quotes?.USD.price ?? 0, 'currency')}
                   </p>
                   <p className="text-sm text-muted-foreground dark:text-gray-400">
-                    24h Change: {formatPercentage(Token?.quotes?.USD?.percent_change_24h)}
+                    24h Change: {formatPercentage(Token?.quotes?.USD?.percent_change_24h ?? 0)}
                   </p>
                 </div>
               </div>
@@ -177,7 +183,7 @@ export default function Component() {
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold dark:text-white">
-                    {formatPercentage(timeframe.value)}
+                    {formatPercentage(timeframe.value ?? 0)}
                   </div>
                 </CardContent>
               </Card>
@@ -206,13 +212,13 @@ export default function Component() {
                       <div>
                         <p className="text-sm text-muted-foreground dark:text-gray-400">Market Cap</p>
                         <p className="text-lg font-semibold dark:text-white">
-                          {formatNumber(Token?.quotes.USD.market_cap, 'currency', 0)}
+                          {formatNumber(Token?.quotes.USD.market_cap ?? 0, 'currency', 0)}
                         </p>
                       </div>
                       <div>
                         <p className="text-sm text-muted-foreground dark:text-gray-400">24h Volume</p>
                         <p className="text-lg font-semibold dark:text-white">
-                          {formatNumber(Token?.quotes.USD.volume_24h, 'currency', 0)}
+                          {formatNumber(Token?.quotes.USD.volume_24h ?? 0, 'currency', 0)}
                         </p>
                       </div>
                     </div>
@@ -231,27 +237,15 @@ export default function Component() {
                       <div>
                         <p className="text-sm text-muted-foreground dark:text-gray-400">Circulating Supply</p>
                         <p className="text-lg font-semibold dark:text-white">
-                          {formatNumber(Token?.circulating_supply, 'decimal', 0)}
+                          {formatNumber(Token?.circulating_supply ?? 0, 'decimal', 0)}
                         </p>
                       </div>
                       <div>
                         <p className="text-sm text-muted-foreground dark:text-gray-400">Max Supply</p>
                         <p className="text-lg font-semibold dark:text-white">
-                          {formatNumber(Token?.max_supply, 'decimal', 0)}
+                          {formatNumber(Token?.max_supply ?? 0, 'decimal', 0)}
                         </p>
                       </div>
-                    </div>
-                    <div className="w-full bg-secondary dark:bg-gray-800 rounded-full h-2">
-                      <div
-                        className="bg-primary dark:bg-orange-500 rounded-full h-2"
-                        style={{
-                          width: `${(Token?.circulating_supply / Token?.max_supply) * 100}%`,
-                        }}
-                        role="progressbar"
-                        aria-valuenow={(Token?.circulating_supply / Token?.max_supply) * 100}
-                        aria-valuemin={0}
-                        aria-valuemax={100}
-                      />
                     </div>
                   </CardContent>
                 </Card>
@@ -268,20 +262,20 @@ export default function Component() {
                       <div>
                         <p className="text-sm text-muted-foreground dark:text-gray-400">ATH Price</p>
                         <p className="text-lg font-semibold dark:text-white">
-                          {formatNumber(Token?.quotes?.USD.ath_price, 'currency')}
+                          {formatNumber(Token?.quotes?.USD.ath_price ?? 0, 'currency')}
                         </p>
                       </div>
                       <div>
                         <p className="text-sm text-muted-foreground dark:text-gray-400">Distance from ATH</p>
                         <p className="text-lg font-semibold dark:text-white">
-                          {formatPercentage(Token?.quotes?.USD.percent_from_price_ath)}
+                          {formatPercentage(Token?.quotes?.USD.percent_from_price_ath ?? 0)}
                         </p>
                       </div>
                       <div>
                         <p className="text-sm text-muted-foreground dark:text-gray-400">ATH Date</p>
                         <p className="text-lg font-semibold flex items-center gap-2 dark:text-white">
                           <Clock className="w-4 h-4" />
-                          {new Date(Token?.quotes?.USD.ath_date).toLocaleDateString()}
+                          {new Date(Token?.quotes?.USD.ath_date ?? 0).toLocaleDateString()}
                         </p>
                       </div>
                     </div>
@@ -321,7 +315,7 @@ export default function Component() {
                 <CardContent className="grid gap-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {Coin?.links_extended.map((link) => {
-                    const LinkIcon = LinkTypes[link.type];
+                    const LinkIcon = LinkTypes[link.type as keyof typeof LinkTypes];
                     return (
                       <Button key={link.url} variant="outline" className="justify-start gap-2 dark:border-[#262626] dark:bg-[#1a1a1a] dark:text-white dark:hover:bg-[#262626]">
                         {LinkIcon && <LinkIcon className="w-4 h-4" />}

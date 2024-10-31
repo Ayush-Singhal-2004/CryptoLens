@@ -13,6 +13,8 @@ import { useEffect, useState } from "react";
 import isValidAddress from "@/app/utils/checkAddress";
 import { useParams } from "next/navigation";
 import getResponse from "@/app/utils/api";
+import Image from "next/image";
+import { NFT, WalletToken } from "@/app/utils/types";
 
 export default function Profile() {
 
@@ -21,8 +23,8 @@ export default function Profile() {
     const address = useParams()?.address;
     console.log(address);
     
-    const [tokens, setTokens] = useState<[any] | null>(null);
-    const [nfts, setNfts] = useState<[any] | null>(null);
+    const [tokens, setTokens] = useState<[WalletToken] | null>(null);
+    const [nfts, setNfts] = useState<[NFT] | null>(null);
 
     const updateTabState = (updatedState: string) => {
         setTabState(updatedState)
@@ -47,7 +49,7 @@ export default function Profile() {
             }
         }
         getTokens();
-    }, []);
+    }, [address]);
 
     useEffect(() => {
         const getNfts = async() => {
@@ -64,7 +66,7 @@ export default function Profile() {
             }
         }
         getNfts();
-    }, [])
+    }, [address])
 
     console.log(nfts);
 
@@ -73,8 +75,13 @@ export default function Profile() {
             <div>
                 <div className="border-b dark:border-b-[#262626] mx-4 py-5 flex justify-between max-sm:flex-col max-sm:gap-5">
                     <div className="flex flex-col gap-3">
-                        <img 
-                        src="https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/706a11ec-2dc9-4f00-e56a-fe8a4973eb00/original" alt="nft" className="h-32 w-32 rounded-2xl" />
+                        <Image 
+                        src="https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/706a11ec-2dc9-4f00-e56a-fe8a4973eb00/original" 
+                        alt="nft" 
+                        className="h-32 w-32 rounded-2xl" 
+                        width={128}
+                        height={128}
+                        />
                         <h1 className="text-xl font-semibold">lens/savesh371</h1>
                     </div>
                     <div className="flex items-end">

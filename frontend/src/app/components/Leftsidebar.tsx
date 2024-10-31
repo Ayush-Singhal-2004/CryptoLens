@@ -5,13 +5,15 @@ import { ChevronLeft, Layers, User } from "lucide-react";
 import { useEffect, useState } from "react";
 import getResponse from "../utils/api";
 import { useRouter } from 'next/router';
+import { Chain, Coin } from "../utils/types";
+import Image from 'next/image';
 
 function LeftSidebar() {
     //const Router = useRouter();
 
     const [leftSidebarOpen, setLeftSidebarOpen] = useState(false);
-    const [Chains, setChains] = useState<[unknown] | null>(null);
-    const [Coins, setCoins] = useState<[unknown] | null>(null);
+    const [Chains, setChains] = useState<[Chain] | null>(null);
+    const [Coins, setCoins] = useState<[Coin] | null>(null);
     const [hasMounted, setHasMounted] = useState(false);
 
     useEffect(() => {
@@ -40,7 +42,7 @@ function LeftSidebar() {
         }
     }, [hasMounted]);
 
-    const handleCoinButton = ({ coin_id }) => {
+    const handleCoinButton = ({ coin_id }: { coin_id: string }) => {
         console.log("Clicked on coin", coin_id);
         if (typeof window === "undefined") return null;
         //Router.push(`/coin/${coin_id}`);
@@ -72,9 +74,9 @@ function LeftSidebar() {
                 {Chains?.map((chain, index) => (
                     <Button key={index} variant="ghost" className="w-full justify-start mb-2 hover:bg-gray-900">
                         <div className="flex-shrink-0">
-                            <img src={chain?.image} alt="Chain Logo" className="w-5 h-5 md:w-5 md:h-5" />
+                            <Image src={chain.image} alt="Chain Logo" width={20} height={20} className="w-5 h-5 md:w-5 md:h-5" />
                         </div>
-                        <span className="text-[22px]">{chain?.name}</span>
+                        <span className="text-[22px]">{chain.name}</span>
                     </Button>
                 ))}
             </div>
@@ -83,9 +85,9 @@ function LeftSidebar() {
                 {Coins?.map((coin, index) => (
                     <Button key={index} variant="ghost" className="w-full justify-start mb-2 hover:bg-gray-900" onClick={() => handleCoinButton({ coin_id: coin?.id })}>
                         <div className="flex-shrink-0">
-                            <img src={coin?.image} alt="Coin Logo" className="w-5 h-5 md:w-7 md:h-7" />
+                            <Image src={coin?.image} alt="Coin Logo" className="w-5 h-5 md:w-7 md:h-7" width={32} height={32} />
                         </div>
-                        <span className="text-[22px]">{coin?.name}</span>
+                        <span className="text-[22px]">{coin.name}</span>
                     </Button>
                 ))}
             </div>

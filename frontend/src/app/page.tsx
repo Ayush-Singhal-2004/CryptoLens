@@ -7,8 +7,9 @@ import MainContent from "./components/MainContent"
 import Footer from "./components/Footer"
 import { useEffect, useState } from "react"
 import getResponse from "./utils/api"
+import { TrendingTokens } from "./utils/types"
 export default function Home() {
-    const [TopTokens, setTopTokens] =useState<[unknown] | null>(null);
+    const [TopTokens, setTopTokens] = useState<TrendingTokens[] | null>(null);
 
     const getTopTokens=async() => {
         const response = await getResponse(`trendingtokens`);

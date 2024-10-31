@@ -16,11 +16,12 @@ import NftCard from "../NFTs/NftCard";
 // import { useParams } from "next/navigation";
 // import isValidAddress from "@/app/utils/checkAddress";
 import { Skeleton } from "@/components/ui/skeleton";
+import { NFT, WalletToken } from "@/app/utils/types";
 
 type OverviewPropType = {
     updateTabState: (updatedState: string) => void,
-    tokens: [any] | null,
-    nfts: [any] | null
+    tokens: [WalletToken] | null,
+    nfts: [NFT] | null
 }
 
 function Overview({updateTabState, tokens, nfts}: OverviewPropType) {

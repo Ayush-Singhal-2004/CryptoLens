@@ -12,9 +12,10 @@ import { Card,
     CardTitle, 
 } from "@/components/ui/card";
 // import { Button } from "@/components/ui/button";
+import { WalletToken } from "@/app/utils/types";
 
 type TransactionTablePropType = {
-    tokens: [any] | null
+    tokens: [WalletToken] | null
 }
 
 function TransactionTable({tokens}: TransactionTablePropType) {
@@ -51,7 +52,9 @@ function TransactionTable({tokens}: TransactionTablePropType) {
                                             <TableCell className="font-semibold">
                                                 <div className="flex items-center gap-2">
                                                     {
-                                                        data.token.icon_url ? <img src={data.token.icon_url} alt="" className="h-8 rounded-full" /> : 
+                                                        data.token.icon_url ? (
+                                                            <img src={data.token.icon_url} alt=""  className="w-8 h-8 rounded-full"></img>
+                                                        ) : 
                                                         <div className="rounded-full border p-2">
                                                             {data.token.name.slice(0,2)}
                                                         </div>
@@ -64,11 +67,14 @@ function TransactionTable({tokens}: TransactionTablePropType) {
                                             </TableCell>
                                             <TableCell>
                                                 <p>
-                                                    {(data.value/Math.pow(10, data.token.decimals)).toFixed(4)}
+                                                    {(Number(data.value)/Math.pow(10, Number(data.token.decimals))).toFixed(4)}
                                                 </p>
                                             </TableCell>
                                             <TableCell className="text-right font-semibold">
-                                                ${parseFloat((parseFloat(data.token.exchange_rate).toFixed(5)) * ((data.value/Math.pow(10, data.token.decimals)).toFixed(4))).toFixed(3)}
+                                                ${(
+                                                    parseFloat(data.token.exchange_rate || "0") // Use "0" as a fallback if exchange_rate is not a valid number
+                                                    * (Number(data.value || "0") / Math.pow(10, Number(data.token.decimals || "0"))) // Use "0" as a fallback for value and decimals
+                                                ).toFixed(5)}
                                             </TableCell>
                                         </TableRow>
                                     ))

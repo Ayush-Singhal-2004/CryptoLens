@@ -7,9 +7,10 @@ import {
     TableRow,
 } from "@/components/ui/table";  
 // import { Card, CardContent } from "@/components/ui/card";
+import { WalletToken } from "../utils/types";
 
 type DataTablePropType = {
-    tokens: [any]
+    tokens: [WalletToken]
 }
 
 function DataTable({tokens}: DataTablePropType) {
@@ -44,11 +45,14 @@ function DataTable({tokens}: DataTablePropType) {
                             </TableCell>
                             <TableCell>
                                 <p>
-                                    {(data.value/Math.pow(10, data.token.decimals)).toFixed(4)}
+                                    {((Number(data.value) / Math.pow(10, Number(data?.token.decimals)))).toFixed(4)}
                                 </p>
                             </TableCell>
                             <TableCell className="text-right font-semibold">
-                                ${parseFloat((parseFloat(data.token.exchange_rate).toFixed(5)) * ((data.value/Math.pow(10, data.token.decimals)).toFixed(4))).toFixed(3)}
+                                ${(
+                                    parseFloat(data.token.exchange_rate || "0") // Use "0" as a fallback if exchange_rate is not a valid number
+                                    * (Number(data.value || "0") / Math.pow(10, Number(data.token.decimals || "0"))) // Use "0" as a fallback for value and decimals
+                                ).toFixed(5)}
                             </TableCell>
                         </TableRow>
                     ))
