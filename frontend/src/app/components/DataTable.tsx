@@ -10,10 +10,18 @@ import {
 import { WalletToken } from "../utils/types";
 
 type DataTablePropType = {
-    tokens: [WalletToken]
+    tokens: [WalletToken] | any
 }
 
 function DataTable({tokens}: DataTablePropType) {
+
+    console.log(tokens);
+
+    if(tokens?.message) {
+        return ( 
+            <h1 className="flex justify-center text-lg font-semibold py-5">You don't have any tokens</h1>
+        )
+    }
 
     let data = null;
     if(tokens) {

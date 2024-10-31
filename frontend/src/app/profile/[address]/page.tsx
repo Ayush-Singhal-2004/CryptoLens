@@ -3,7 +3,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Overview from "../Overview/Overview";
 import { Card, CardContent } from "@/components/ui/card"  
-// import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 // import { LuSend } from "react-icons/lu";
 import NftCard from "../NFTs/NftCard";
 import Activity from "../Activity/Activity";
@@ -15,10 +15,13 @@ import { useParams } from "next/navigation";
 import getResponse from "@/app/utils/api";
 import Image from "next/image";
 import { NFT, WalletToken } from "@/app/utils/types";
+import { ArrowLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function Profile() {
 
     const [tabState, setTabState] = useState("overview");
+    const router = useRouter();
     
     const address = useParams()?.address;
     console.log(address);
@@ -32,6 +35,10 @@ export default function Profile() {
 
     const scrollUp = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    const handleBackButton = () => {
+        router.push("/");
     }
 
     useEffect(() => {
@@ -71,24 +78,20 @@ export default function Profile() {
     console.log(nfts);
 
     return (
-        <div className="overflow-x-hidden bg-[#111827]">
+        <div className="overflow-x-hidden dark:bg-[#111827]">
             <div>
-                <div className="border-b dark:border-b-[#262626] mx-4 py-5 flex justify-between max-sm:flex-col max-sm:gap-5">
-                    <div className="flex flex-col gap-3">
-                        <Image 
-                        src="https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/706a11ec-2dc9-4f00-e56a-fe8a4973eb00/original" 
-                        alt="nft" 
-                        className="h-32 w-32 rounded-2xl" 
-                        width={128}
-                        height={128}
-                        />
-                        <h1 className="text-xl font-semibold">lens/savesh371</h1>
+                <div className="border-b dark:border-b-[#262626] mx-4 py-5 flex justify-between items-end max-sm:flex-col max-sm:gap-5">
+                    <div className="flex flex-col items-start gap-[5vh]">
+                        <Button className="dark:bg-[#1F2937] dark:text-white" 
+                        onClick={handleBackButton}>
+                            <ArrowLeft />
+                            Back
+                        </Button>
+                        <h1 className="text-2xl font-semibold">
+                            {localStorage.getItem("address")}
+                        </h1>
                     </div>
                     <div className="flex items-end">
-                        {/* <Button>
-                            Send
-                            <LuSend />
-                        </Button> */}
                         <Card className="w-[30vw] max-sm:w-[80vw]">
                             <CardContent className="py-4">
                                 <p className="text-lg">Net Worth</p>
@@ -125,7 +128,7 @@ export default function Profile() {
                         />
                     </TabsContent>
                     <TabsContent value="nft" className="relative">
-                        <div className="grid grid-cols-4 max-sm:grid-cols-1 justify-items-center gap-y-5 py-5">
+                        <div className="grid grid-cols-4 max-sm:grid-cols-1 justify-items-center gap-y-5 py-5 h-[70vh]">
                             {
                                 nfts != null && nfts.map((nft, index) => (
                                    <div key={index}>

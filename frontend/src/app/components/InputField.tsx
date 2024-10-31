@@ -1,6 +1,14 @@
 import { PlaceholdersAndVanishInput } from "@/components/ui/placeholders-and-vanish-input";
+import { useState } from "react";
+import isValidAddress from "../utils/checkAddress";
+import { useRouter } from "next/navigation";
 
-function InputField() {
+function InputField({ updateToast }: {
+    updateToast: (title: string, description: string) => void
+}) {
+
+    const [address, setAddress] = useState("");
+    const router = useRouter();
 
     const placeholders = [
         "Enter wallet address to explore holdings and activity",
@@ -9,11 +17,19 @@ function InputField() {
     ];
      
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.value);
+        setAddress(e.target.value);
     };
+
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("submitted");
+        console.log(address);
+        if(isValidAddress(address)) {
+            router.push(`/profile/${address}`);
+        }
+        else {
+            updateToast("Invalid address", "Enter a valid wallet address.");
+        }
+        setAddress("");
     };
 
     return (
