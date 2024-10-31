@@ -7,6 +7,7 @@ import {
     TableRow,
 } from "@/components/ui/table";  
 import { WalletToken } from "../utils/types";
+import { useState } from "react";
 
 type DataTablePropType = {
     tokens: [WalletToken] | any

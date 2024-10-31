@@ -17,6 +17,7 @@ import NftCard from "../NFTs/NftCard";
 // import isValidAddress from "@/app/utils/checkAddress";
 import { Skeleton } from "@/components/ui/skeleton";
 import { NFT, WalletToken } from "@/app/utils/types";
+import { useEffect, useState } from "react";
 
 type OverviewPropType = {
     updateTabState: (updatedState: string) => void,
@@ -26,6 +27,21 @@ type OverviewPropType = {
 
 function Overview({updateTabState, tokens, nfts}: OverviewPropType) {
 
+    const [total, setTotal] = useState(0);
+    const [nftsTotal, setNftsTotal] = useState(0);
+
+    useEffect(() => {
+        if(tokens) {
+            let walletTotal = 0;
+            tokens.map((data) => {
+                let tempTotal = total;
+                tempTotal += parseFloat(data.token.exchange_rate || "0") * (Number(data.value || "0") / Math.pow(10, Number(data.token.decimals || "0")));
+                walletTotal += tempTotal;
+            });
+            setTotal(walletTotal);
+        }
+    }, [tokens]);
+
     return (
         <div className="px-4 flex justify-between py-2 max-sm:flex-col max-sm:items-center">
             <div className="w-[49%] max-sm:w-full">
@@ -34,7 +50,7 @@ function Overview({updateTabState, tokens, nfts}: OverviewPropType) {
                         <CardTitle className="text-xl">
                             <div className="flex justify-between">
                                 <h1>Wallet</h1>
-                                <h1>$13,868.39</h1>
+                                <h1>${total}</h1>
                             </div>
                         </CardTitle>
                     </CardHeader>
@@ -70,7 +86,7 @@ function Overview({updateTabState, tokens, nfts}: OverviewPropType) {
                         <CardTitle className="text-xl">
                             <div className="flex justify-between">
                                 <h1>NFTs</h1>
-                                <h1>$0.27</h1>
+                                {/* <h1>${nftsTotal}</h1> */}
                             </div>
                         </CardTitle>
                     </CardHeader>
