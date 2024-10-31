@@ -3,8 +3,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Overview from "../Overview/Overview";
 import { Card, CardContent } from "@/components/ui/card"  
-import { Button } from "@/components/ui/button";
-// import { LuSend } from "react-icons/lu";
 import NftCard from "../NFTs/NftCard";
 import Activity from "../Activity/Activity";
 import TransactionTable from "../Wallet/TransactionTable";
@@ -13,15 +11,11 @@ import { useEffect, useState } from "react";
 import isValidAddress from "@/app/utils/checkAddress";
 import { useParams } from "next/navigation";
 import getResponse from "@/app/utils/api";
-import Image from "next/image";
 import { NFT, WalletToken } from "@/app/utils/types";
-import { ArrowLeft } from "lucide-react";
-import { useRouter } from "next/navigation";
 
 export default function Profile() {
 
     const [tabState, setTabState] = useState("overview");
-    const router = useRouter();
     
     const address = useParams()?.address;
     console.log(address);
@@ -35,10 +29,6 @@ export default function Profile() {
 
     const scrollUp = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    const handleBackButton = () => {
-        router.push("/");
     }
 
     useEffect(() => {
@@ -82,11 +72,6 @@ export default function Profile() {
             <div>
                 <div className="border-b dark:border-b-[#262626] mx-4 py-5 flex justify-between items-end max-sm:flex-col max-sm:gap-5">
                     <div className="flex flex-col items-start gap-[5vh]">
-                        <Button className="dark:bg-[#1F2937] dark:text-white" 
-                        onClick={handleBackButton}>
-                            <ArrowLeft />
-                            Back
-                        </Button>
                         <h1 className="text-2xl font-semibold">
                             {localStorage.getItem("address")}
                         </h1>

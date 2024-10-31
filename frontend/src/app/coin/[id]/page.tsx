@@ -191,7 +191,7 @@ export default function Component() {
               <Card >
                 <CardHeader>
                   <CardTitle className="dark:text-white">Core Team</CardTitle>
-                  <CardDescription className="dark:text-gray-400">Key people behind Bitcoin development</CardDescription>
+                  <CardDescription className="dark:text-gray-400">Key people behind {Coin?.name} development</CardDescription>
                 </CardHeader>
                 <CardContent className="grid gap-6">
                   {Coin?.team.map((member) => (
