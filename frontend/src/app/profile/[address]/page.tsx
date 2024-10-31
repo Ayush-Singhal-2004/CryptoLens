@@ -73,7 +73,7 @@ export default function Profile() {
                 <div className="border-b dark:border-b-[#262626] mx-4 py-5 flex justify-between items-end max-sm:flex-col max-sm:gap-5">
                     <div className="flex flex-col items-start gap-[5vh]">
                         <h1 className="text-2xl font-semibold">
-                            {localStorage.getItem("address")}
+                            {address}
                         </h1>
                     </div>
                     <div className="flex items-end">
