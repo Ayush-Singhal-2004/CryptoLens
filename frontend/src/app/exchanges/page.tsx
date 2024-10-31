@@ -15,8 +15,11 @@ import { useEffect, useState } from "react"
 import getResponse from "../utils/api"
 import { Exchange } from "../utils/types"
 import LeftSidebar from "../components/Leftsidebar"
+import { useToast } from "@/hooks/use-toast"
+import { Toaster } from "@/components/ui/toaster"
 
 export default function ExchangeList() {
+    const { toast } = useToast();
     const [exchanges, setExchanges] =useState<[Exchange]>([]);
     const getExchanges = async() => {
         const response = await getResponse("exchanges");
@@ -31,11 +34,19 @@ export default function ExchangeList() {
     useEffect(()=>{
         getExchanges();
     },[]);
+
+    const updateToast = (title: string, description: string) => {
+      toast({
+          title: title,
+          description: description
+      })
+  }
     return (
         <div className="bg-gray-900 flex">
             <div >
-                <LeftSidebar/>
+                <LeftSidebar updateToast={updateToast} />
             </div>
+            <Toaster />
             <div className="container mx-auto p-4">
           <h1 className="text-2xl font-bold mb-6">Cryptocurrency Exchanges</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

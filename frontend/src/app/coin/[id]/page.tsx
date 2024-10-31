@@ -34,6 +34,8 @@ import { useParams } from "next/navigation"
 import {Coin,Token} from "../../utils/types"
 import Image from "next/image"
 import LeftSidebar from "@/app/components/Leftsidebar"
+import { useToast } from "@/hooks/use-toast"
+import { Toaster } from "@/components/ui/toaster"
 // Utility functions remain the same
 function formatNumber(num: number, style: 'currency' | 'decimal' = 'decimal', minimumFractionDigits = 2) {
   const formatter = new Intl.NumberFormat('en-US', {
@@ -55,6 +57,7 @@ function formatPercentage(value: number) {
 }
 
 export default function Component() {
+    const { toast } = useToast();
     const params = useParams()
     const [Coin, setCoin] =useState<Coin | null>(null);
     const [Token, setToken] =useState<Token | null>(null);
@@ -101,7 +104,12 @@ export default function Component() {
         "announcement":Megaphone
 
     }
- 
+    const updateToast = (title: string, description: string) => {
+      toast({
+          title: title,
+          description: description
+      })
+  }
   const timeframes = [
     { label: "24h", value: Token?.quotes?.USD?.percent_change_24h },
     { label: "7d", value: Token?.quotes?.USD?.percent_change_7d },
@@ -113,8 +121,9 @@ export default function Component() {
     <>
     <div className="min-h-screen flex bg-white dark:bg-gray-900 transition-colors duration-300">
       <div>
-      <LeftSidebar />
+      <LeftSidebar updateToast={updateToast} />
       </div>
+      <Toaster />
       <div className="p-4 ml-10 space-y-6">
         <div className="max-w-7xl mx-auto">
           {/* Hero Section */}
