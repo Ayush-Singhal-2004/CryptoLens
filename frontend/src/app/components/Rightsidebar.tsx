@@ -7,9 +7,15 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import Image from 'next/image';
 import { TrendingTokens } from "../utils/types";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useRouter } from "next/navigation";
 
 function RightSidebar({TopTokens}:{TopTokens:TrendingTokens[] | null}) {
+    const router = useRouter();
     const [rightSidebarOpen, setRightSidebarOpen] = useState(false)
+
+    const handleTokenClick = (id: string) => {
+        router.push(`/token/${id}`);
+    }
     return (
         <aside className={`fixed md:w-80 md:static inset-y-0 right-0 z-50 dark:bg-[#1f2937e2] w-64 transform ${rightSidebarOpen ? 'translate-x-0' : 'translate-x-full'} md:translate-x-0 transition-transform duration-200 ease-in-out text-black dark:text-white`}>
             <div className="flex items-center justify-between p-4 border-b-2 dark:border-gray-700">
@@ -36,7 +42,7 @@ function RightSidebar({TopTokens}:{TopTokens:TrendingTokens[] | null}) {
                     }
                     {TopTokens?.map((token, index) => (
                     <div key={index} className="flex justify-between items-center mb-4">
-                        <div className="flex items-center">
+                        <div className="flex items-center" onClick={() => handleTokenClick(token?.id)}>
                             <div className="flex-shrink-0 pr-2">
                                 <Image
                                     src={token?.image}

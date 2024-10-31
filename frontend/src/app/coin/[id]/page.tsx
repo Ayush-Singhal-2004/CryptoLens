@@ -178,117 +178,14 @@ export default function Component() {
             </CardContent>
           </Card>
 
-          {/* Price Changes Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-            {timeframes.map((timeframe) => (
-              <Card key={timeframe.label}>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium text-muted-foreground dark:text-gray-400">
-                    {timeframe.label}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold dark:text-white">
-                    {formatPercentage(timeframe.value ?? 0)}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
 
           {/* Tabs */}
-          <Tabs defaultValue="market" className="space-y-4">
+          <Tabs defaultValue="team" className="space-y-4">
             <TabsList className="dark:bg-[#1a1a1a]">
-              <TabsTrigger value="market">Market Data</TabsTrigger>
               <TabsTrigger value="team">Team</TabsTrigger>
               <TabsTrigger value="links">Links & Resources</TabsTrigger>
             </TabsList>
 
-            <TabsContent value="market" className="space-y-4">
-              <div className="grid md:grid-cols-2 gap-4">
-                <Card >
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2 dark:text-white">
-                      <CircleDollarSign className="w-5 h-5" />
-                      Market Stats
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <p className="text-sm text-muted-foreground dark:text-gray-400">Market Cap</p>
-                        <p className="text-lg font-semibold dark:text-white">
-                          {formatNumber(Token?.quotes.USD.market_cap ?? 0, 'currency', 0)}
-                        </p>
-                      </div>
-                      <div>
-                        <p className="text-sm text-muted-foreground dark:text-gray-400">24h Volume</p>
-                        <p className="text-lg font-semibold dark:text-white">
-                          {formatNumber(Token?.quotes.USD.volume_24h ?? 0, 'currency', 0)}
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card >
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2 dark:text-white">
-                      <Wallet className="w-5 h-5" />
-                      Supply Information
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <p className="text-sm text-muted-foreground dark:text-gray-400">Circulating Supply</p>
-                        <p className="text-lg font-semibold dark:text-white">
-                          {formatNumber(Token?.circulating_supply ?? 0, 'decimal', 0)}
-                        </p>
-                      </div>
-                      <div>
-                        <p className="text-sm text-muted-foreground dark:text-gray-400">Max Supply</p>
-                        <p className="text-lg font-semibold dark:text-white">
-                          {formatNumber(Token?.max_supply ?? 0, 'decimal', 0)}
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="md:col-span-2 ">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2 dark:text-white">
-                      <TrendingUp className="w-5 h-5" />
-                      All-Time High
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                      <div>
-                        <p className="text-sm text-muted-foreground dark:text-gray-400">ATH Price</p>
-                        <p className="text-lg font-semibold dark:text-white">
-                          {formatNumber(Token?.quotes?.USD.ath_price ?? 0, 'currency')}
-                        </p>
-                      </div>
-                      <div>
-                        <p className="text-sm text-muted-foreground dark:text-gray-400">Distance from ATH</p>
-                        <p className="text-lg font-semibold dark:text-white">
-                          {formatPercentage(Token?.quotes?.USD.percent_from_price_ath ?? 0)}
-                        </p>
-                      </div>
-                      <div>
-                        <p className="text-sm text-muted-foreground dark:text-gray-400">ATH Date</p>
-                        <p className="text-lg font-semibold flex items-center gap-2 dark:text-white">
-                          <Clock className="w-4 h-4" />
-                          {new Date(Token?.quotes?.USD.ath_date ?? 0).toLocaleDateString()}
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </TabsContent>
 
             <TabsContent value="team">
               <Card >
