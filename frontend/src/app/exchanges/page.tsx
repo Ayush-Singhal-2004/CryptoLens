@@ -152,6 +152,5 @@ export default function ExchangeList() {
           </div>
         </div>
         </div>
-        
       )
 }

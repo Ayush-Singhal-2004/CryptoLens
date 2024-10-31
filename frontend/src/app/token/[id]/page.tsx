@@ -87,7 +87,7 @@ export default function TokenPage() {
   }
 
   return (
-    <div className="bg-gray-900 min-h-screen">
+    <div className="dark:bg-gray-900 min-h-screen">
          <div className="container mx-auto p-4">
       <div className="flex flex-col lg:flex-row gap-8">
         <div className="flex-grow">

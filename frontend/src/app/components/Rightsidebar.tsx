@@ -25,7 +25,7 @@ function RightSidebar({TopTokens}:{TopTokens:TrendingTokens[] | null}) {
             </Button>
             </div>
             <ScrollArea className="h-[calc(100vh-5rem)]">
-                <div className="p-4 pr-10">
+                <div className="p-4 pr-5">
                     {
                         TopTokens == null && <div className="flex flex-col gap-4">
                             <div className="flex items-center gap-5">
@@ -41,7 +41,7 @@ function RightSidebar({TopTokens}:{TopTokens:TrendingTokens[] | null}) {
                         </div> 
                     }
                     {TopTokens?.map((token, index) => (
-                    <div key={index} className="flex justify-between items-center mb-4">
+                    <div key={index} className="flex justify-between items-center mb-4 cursor-pointer hover:bg-gray-400 dark:hover:bg-gray-700 px-5 rounded-md">
                         <div className="flex items-center" onClick={() => handleTokenClick(token?.id)}>
                             <div className="flex-shrink-0 pr-2">
                                 <Image
