@@ -48,6 +48,12 @@ function LeftSidebar() {
         //Router.push(`/coin/${coin_id}`);
     };
 
+    const handleMyProfileClick = () => {
+        const address = localStorage.getItem("address");
+        if(address) {
+            
+        }
+    }
     if (!hasMounted) return null;
 
     return (
@@ -60,10 +66,10 @@ function LeftSidebar() {
             </div>
             <nav className="p-4">
                 {[
-                    { icon: <User className="h-5 w-5" />, label: "My Profile" },
+                    { icon: <User className="h-5 w-5" />, label: "My Profile", handleClick: handleMyProfileClick },
                     { icon: <Layers className="h-5 w-5" />, label: "Tokens" },
                 ].map((item, index) => (
-                    <Button key={index} variant="ghost" className="w-full justify-start mb-2 hover:bg-gray-900">
+                    <Button key={index} variant="ghost" className="w-full justify-start mb-2 hover:bg-gray-900" onClick={item?.handleClick}>
                         {item.icon}
                         <span className="ml-2 text-xl">{item.label}</span>
                     </Button>
