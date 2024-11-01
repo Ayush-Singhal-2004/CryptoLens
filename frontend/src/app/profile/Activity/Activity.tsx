@@ -11,7 +11,7 @@ function Activity({transactions}: any) {
     const [transactionType, setTransactionType] = useState("all");
 
     return (
-        <div className="px-4 py-2">
+        <div className="px-4 py-2 h-screen">
             <Card className="shadow-lg mb-3">
                 <CardContent className="py-4 flex items-center justify-between
                 max-sm:flex-col max-sm:items-start max-sm:gap-5">

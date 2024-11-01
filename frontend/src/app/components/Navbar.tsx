@@ -41,6 +41,7 @@ function Navbar() {
         await provider.send("eth_requestAccounts", []);
         const signer = await provider.getSigner()
         localStorage.setItem("address", signer.address);
+        setAddress(signer.address);
 
         toast({
             title: "Wallet connected successfully",

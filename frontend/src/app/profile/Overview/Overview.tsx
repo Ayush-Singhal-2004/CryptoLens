@@ -33,7 +33,7 @@ function Overview({updateTabState, tokens, nfts, transactions}: OverviewPropType
     const [transactionList, setTransactionList] = useState([]);
 
     useEffect(() => {
-        if(transactions.length > 0) {
+        if(transactions?.length > 0) {
             const tempTransactions = transactions.splice(0, 5);
             setTransactionList(tempTransactions);
         }

@@ -14,7 +14,7 @@ function ActivityCard({transactions}: any) {
     return (
         <>
         {
-            transactions.length > 0 && transactions.map((transaction, index) => (
+            transactions?.length > 0 && transactions.map((transaction, index) => (
                 <div key={index}>
                     <TransactionCard
                     timestamp={transaction?.timestamp}

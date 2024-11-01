@@ -36,23 +36,23 @@ export default function Profile() {
 
     useEffect(() => {
         let tokens = localStorage.getItem("tokens");
-        if(tokens) {
+        if(tokens!== undefined && tokens !== null) {
             tokens = JSON.parse(tokens);
             setTokens(tokens as any);
         }
     }, []);
 
     useEffect(() => {
-        let transactions = localStorage.getItem("transactions");
-        if(transactions) {
-            transactions = JSON.parse(transactions);
+        let transaction = localStorage.getItem("transactions");
+        if(transaction !== "undefined" && transaction !== null) {
+            transaction = JSON.parse(transaction);
             setTransactions(transactions as any);
         }
     }, []);
 
     useEffect(() => {
         let nfts = localStorage.getItem("nfts");
-        if(nfts) {
+        if(nfts !== "undefined" && nfts !== null) {
             nfts = JSON.parse(nfts);
             setNfts(nfts as any);
         }
@@ -104,10 +104,11 @@ export default function Profile() {
     }, [address]);
 
     useEffect(() => {
+            if(tokens?.message) return;
             if(tokens) {
                 console.log(tokens);
                 let walletTotal = 0;
-                tokens.map((data) => {
+                tokens?.map((data) => {
                     let tempTotal = netWorth;
                     tempTotal += parseFloat(data.token?.exchange_rate || "0") * (Number(data.value || "0") / Math.pow(10, Number(data.token?.decimals || "0")));
                     walletTotal += tempTotal;
