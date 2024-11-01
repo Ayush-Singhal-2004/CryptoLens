@@ -139,7 +139,7 @@ export const getExchange=async (req: Request, res: Response, next: NextFunction)
     try{
         const assert_id=req.params.id
         let response= await getRequest(`addon/748/v1/exchanges/${assert_id}`)
-        successResponse.data=response.slice(0,20)
+        successResponse.data=response
         res.status(StatusCodes.OK).json(successResponse);
     } catch (error: any) {
         errorResponse.error = error
@@ -151,7 +151,7 @@ export const getExchangeMarket=async (req: Request, res: Response, next: NextFun
     try{
         const assert_id=req.params.id
         let response= await getRequest(`addon/748/v1/exchanges/${assert_id}/markets`)
-        successResponse.data=response.slice(0,20)
+        successResponse.data=response
         res.status(StatusCodes.OK).json(successResponse);
     } catch (error: any) {
         errorResponse.error = error
