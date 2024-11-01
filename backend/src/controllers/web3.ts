@@ -134,3 +134,27 @@ export const getExchanges=async (req: Request, res: Response, next: NextFunction
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(errorResponse);
     }
 }
+
+export const getExchange=async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try{
+        const assert_id=req.params.id
+        let response= await getRequest(`addon/748/v1/exchanges/${assert_id}`)
+        successResponse.data=response.slice(0,20)
+        res.status(StatusCodes.OK).json(successResponse);
+    } catch (error: any) {
+        errorResponse.error = error
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(errorResponse);
+    }
+}
+
+export const getExchangeMarket=async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try{
+        const assert_id=req.params.id
+        let response= await getRequest(`addon/748/v1/exchanges/${assert_id}/markets`)
+        successResponse.data=response.slice(0,20)
+        res.status(StatusCodes.OK).json(successResponse);
+    } catch (error: any) {
+        errorResponse.error = error
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(errorResponse);
+    }
+}
