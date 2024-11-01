@@ -4,7 +4,7 @@ import isValidAddress from "../utils/checkAddress";
 import { useRouter } from "next/navigation";
 
 function InputField({ updateToast }: {
-    updateToast: (title: string, description: string) => void
+    updateToast: (title: string, description: string, type: string) => void
 }) {
 
     const [address, setAddress] = useState("");
@@ -27,7 +27,7 @@ function InputField({ updateToast }: {
             router.push(`/profile/${address}`);
         }
         else {
-            updateToast("Invalid address", "Enter a valid wallet address.");
+            updateToast("Invalid address", "Enter a valid wallet address.", "destructive");
         }
         setAddress("");
     };

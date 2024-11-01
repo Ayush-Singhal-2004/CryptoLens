@@ -1,10 +1,29 @@
 import { Card, CardContent } from "@/components/ui/card"  
 
-function ActivityCard() {
+type ActivityCardPropType = {
+    timestamp: string,
+    method: string,
+    status: string,
+    to: string,
+    from: string,
+    transactionHash: string,
+    fee: string
+}
+
+function ActivityCard({
+    timestamp, method, status, to, from, transactionHash, fee
+}: ActivityCardPropType) {
     return (
         <Card className="mb-3 shadow-xl">
             <CardContent className="py-5 flex flex-col gap-4">
-                <div className="flex items-center gap-2">
+                <p><strong>Timestamp:</strong> {new Date(timestamp).toLocaleString()}</p>
+                <p><strong>Method:</strong> {method}</p>
+                <p><strong>Status:</strong> {status}</p>
+                <p><strong>To:</strong> {to}</p>
+                <p><strong>From:</strong> {from}</p>
+                <p><strong>Transaction Hash:</strong> {transactionHash}</p>
+                <p><strong>Fee:</strong> {parseInt(fee).toLocaleString()} wei</p>
+                {/* <div className="flex items-center gap-2">
                     <img 
                     src="https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/706a11ec-2dc9-4f00-e56a-fe8a4973eb00/original" alt="nft" className="h-10 w-10 rounded-lg" />
                     <div>
@@ -28,7 +47,7 @@ function ActivityCard() {
                     <p className="font-semibold text-sm dark:bg-gray-800 px-2 border dark:border-gray-600 rounded-lg">
                         IN
                     </p>
-                </div>
+                </div> */}
             </CardContent>
         </Card>
     )

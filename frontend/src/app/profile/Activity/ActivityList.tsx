@@ -1,6 +1,6 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 
-function ActivityList() {
+function ActivityList({transactions}: any) {
     return (
         <ScrollArea className="w-full rounded-md border px-4 py-2 mt-3 shadow-lg">
             <ListItem />

@@ -24,6 +24,8 @@ export default function Profile() {
     const [nfts, setNfts] = useState<[NFT] | null>(null);
     const [netWorth, setNetWorth] = useState(0);
 
+    const [transactions, setTransactions] = useState([]);
+
     const updateTabState = (updatedState: string) => {
         setTabState(updatedState)
     }
@@ -37,6 +39,14 @@ export default function Profile() {
         if(tokens) {
             tokens = JSON.parse(tokens);
             setTokens(tokens as any);
+        }
+    }, []);
+
+    useEffect(() => {
+        let transactions = localStorage.getItem("transactions");
+        if(transactions) {
+            transactions = JSON.parse(transactions);
+            setTransactions(transactions as any);
         }
     }, []);
 
@@ -59,9 +69,6 @@ export default function Profile() {
                     setTokens(response.data?.data);
                 }
             }
-            else {
-                //TODO
-            }
         }
         getTokens();
     }, [address]);
@@ -77,12 +84,24 @@ export default function Profile() {
                     setNfts(response.data.data.items);
                 }
             }
-            else {
-                //TODO
-            }
         }
         getNfts();
     }, [address])
+
+    useEffect(() => {
+        const getTransactions = async() => {
+            if(isValidAddress(address as string)) {
+                const response = await getResponse(`transactions/${address}`);
+                if(response.status == 200 && typeof response.data.data !== "string") {
+                    localStorage.setItem("transactions", JSON.stringify(response.data.data.items));
+                    // console.log("TRANSACTIONS");
+                    // console.log(response.data.data.items);
+                    setTransactions(response.data.data.items);
+                }
+            }
+        }
+        getTransactions();
+    }, [address]);
 
     useEffect(() => {
             if(tokens) {
@@ -142,6 +161,7 @@ export default function Profile() {
                         updateTabState={updateTabState} 
                         tokens={tokens}
                         nfts={nfts}
+                        transactions={transactions}
                         />
                     </TabsContent>
                     <TabsContent value="nft" className="relative">
@@ -163,7 +183,7 @@ export default function Profile() {
                         </div>
                     </TabsContent>
                     <TabsContent value="activity">
-                        <Activity />
+                        <Activity transactions={transactions} />
                     </TabsContent>
                     <TabsContent value="wallet">
                         <TransactionTable tokens={tokens} />

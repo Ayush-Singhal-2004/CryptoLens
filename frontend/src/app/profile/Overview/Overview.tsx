@@ -22,13 +22,22 @@ import { useEffect, useState } from "react";
 type OverviewPropType = {
     updateTabState: (updatedState: string) => void,
     tokens: [WalletToken] | null,
-    nfts: [NFT] | null
+    nfts: [NFT] | null,
+    transactions: [any]
 }
 
-function Overview({updateTabState, tokens, nfts}: OverviewPropType) {
+function Overview({updateTabState, tokens, nfts, transactions}: OverviewPropType) {
 
     // const [total, setTotal] = useState(0);
     const [nftsTotal, setNftsTotal] = useState(0);
+    const [transactionList, setTransactionList] = useState([]);
+
+    useEffect(() => {
+        if(transactions.length > 0) {
+            const tempTransactions = transactions.splice(0, 5);
+            setTransactionList(tempTransactions);
+        }
+    }, [transactions]);
 
     return (
         <div className="px-4 flex justify-between py-2 max-sm:flex-col max-sm:items-center">
@@ -121,12 +130,26 @@ function Overview({updateTabState, tokens, nfts}: OverviewPropType) {
                     </CardContent>
                 </Card>
                 <ScrollArea className="h-[120vh] w-full max-sm:h-[50vh] max-sm:pb-5">    
+                    {
+                        transactionList.length > 0 && transactionList.map((transaction, index) => (
+                            <div key={index}>
+                                <ActivityCard
+                                timestamp={transaction?.timestamp}
+                                method={transaction?.method}
+                                status={transaction?.status}
+                                to={transaction?.to.hash}
+                                from={transaction?.from.hash}
+                                transactionHash={transaction?.hash}
+                                fee={transaction?.fee.value}
+                                />
+                            </div>
+                        ))
+                    }
+                    {/* <ActivityCard />
                     <ActivityCard />
                     <ActivityCard />
                     <ActivityCard />
-                    <ActivityCard />
-                    <ActivityCard />
-                    <ActivityCard />
+                    <ActivityCard /> */}
                     <div className="flex justify-end px-5">
                         <Button variant={"outline"} className="font-semibold"
                         onClick={() => updateTabState("activity")}>

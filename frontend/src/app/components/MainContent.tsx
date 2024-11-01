@@ -12,7 +12,7 @@ import InputField from "./InputField";
 
 function MainContent({TopTokens, updateToast}: {
     TopTokens:TrendingTokens[] | null,
-    updateToast: (title: string, description: string) => void
+    updateToast: (title: string, description: string, type: string) => void
 }) {
     return (
         <main className="flex-1 p-4 md:p-8">
@@ -34,8 +34,8 @@ function MainContent({TopTokens, updateToast}: {
                         <div className="absolute inset-0 bg-gradient-to-r from-teal-400 via-blue-500 to-purple-600 rounded-lg filter blur-3xl opacity-30"></div>
                         <Card className="relative dark:bg-gray-800 dark:border-gray-700 shadow-xl">
                             <CardHeader>
-                                <CardTitle>Portfolio Overview</CardTitle>
-                                <CardDescription>Your assets across chains and protocols</CardDescription>
+                                <CardTitle>Blockchain Overview</CardTitle>
+                                <CardDescription>Assets across chains and protocols</CardDescription>
                             </CardHeader>
                             <CardContent>
                                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
@@ -53,7 +53,7 @@ function MainContent({TopTokens, updateToast}: {
             </section>
 
             {/* Feature Highlights */}
-            <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            {/* <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
                 <h2 className="text-3xl font-bold text-center mb-12">Powerful Features for Web3 Enthusiasts</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {[
@@ -86,7 +86,7 @@ function MainContent({TopTokens, updateToast}: {
                         </Card>
                     ))}
                 </div>
-            </section>
+            </section> */}
         </main>
     )
 }

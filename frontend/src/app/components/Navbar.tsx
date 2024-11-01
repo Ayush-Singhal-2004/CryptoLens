@@ -9,6 +9,7 @@ import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import { House } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
 
 declare global {
     interface Window {
@@ -19,12 +20,14 @@ declare global {
 function Navbar() {
 
     const { theme, setTheme } = useTheme();
-    const [connectWalletFlag, setConnectWalletFlag] = useState(true);
+    // const [connectWalletFlag, setConnectWalletFlag] = useState(true);
     const router = useRouter();
+    const [address, setAddress] = useState(localStorage.getItem("address"));
+    const { toast } = useToast();
 
     useEffect(() => {
         if(localStorage.getItem("address")) {
-            setConnectWalletFlag(false);
+            // setConnectWalletFlag(false);
         }
     }, []);
     
@@ -37,6 +40,13 @@ function Navbar() {
         await provider.send("eth_requestAccounts", []);
         const signer = await provider.getSigner()
         localStorage.setItem("address", signer.address);
+
+        toast({
+            title: "Wallet connected successfully",
+            description: "You can check your address details in your profile.",
+            className: "bg-green-100 border-l-4 border-green-500 text-green-700"
+        })
+
     }
 
     const redirectToHome = () => {
@@ -51,7 +61,7 @@ function Navbar() {
             </div>
             <div className="flex gap-3">
                 {
-                    connectWalletFlag && 
+                    address === null && 
                     <Button variant="default" className="font-semibold dark:bg-[#1F2937] dark:text-white" onClick={connectWallet}>
                         Connect Wallet
                     </Button>

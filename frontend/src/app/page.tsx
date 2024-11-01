@@ -33,10 +33,20 @@ export default function Home() {
         }
     }
 
-    const updateToast = (title: string, description: string) => {
+    const updateToast = (title: string, description: string, type: string) => {
+
+        let classname = "bg-blue-100 border-l-4 border-[#111827] text-[#111827]";
+        if(type === "success") {
+            classname = "bg-green-100 border-l-4 border-green-500 text-green-700";
+        } 
+        else if(type === "destructive") {
+            classname = "bg-red-100 border-l-4 border-red-500 text-red-700"
+        }
+
         toast({
             title: title,
-            description: description
+            description: description,
+            className: classname
         })
     }
 
