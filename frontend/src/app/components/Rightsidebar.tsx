@@ -41,8 +41,8 @@ function RightSidebar({TopTokens}:{TopTokens:TrendingTokens[] | null}) {
                         </div> 
                     }
                     {TopTokens?.map((token, index) => (
-                    <div key={index} className="flex justify-between items-center mb-4 cursor-pointer hover:bg-gray-400 dark:hover:bg-gray-700 px-5 rounded-md">
-                        <div className="flex items-center" onClick={() => handleTokenClick(token?.id)}>
+                    <div key={index} className="flex justify-between items-center mb-4 cursor-pointer hover:bg-gray-400 dark:hover:bg-gray-700 px-5 rounded-md" onClick={() => handleTokenClick(token?.id)}>
+                        <div className="flex items-center" >
                             <div className="flex-shrink-0 pr-2">
                                 <Image
                                     src={token?.image}
