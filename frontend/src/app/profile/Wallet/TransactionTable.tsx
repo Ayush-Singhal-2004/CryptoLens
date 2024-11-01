@@ -39,7 +39,7 @@ function TransactionTable({tokens}: TransactionTablePropType) {
                         <CardTitle className="text-xl">
                             <div className="flex justify-between">
                                 <h1>Wallet</h1>
-                                <h1>$13,868.39</h1>
+                                {/* <h1>$13,868.39</h1> */}
                             </div>
                         </CardTitle>
                     </CardHeader>

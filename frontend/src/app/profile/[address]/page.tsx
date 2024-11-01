@@ -106,12 +106,10 @@ export default function Profile() {
     useEffect(() => {
             if(tokens?.message) return;
             if(tokens) {
-                console.log(tokens);
+                // console.log(tokens);
                 let walletTotal = 0;
                 tokens?.map((data) => {
-                    let tempTotal = netWorth;
-                    tempTotal += parseFloat(data.token?.exchange_rate || "0") * (Number(data.value || "0") / Math.pow(10, Number(data.token?.decimals || "0")));
-                    walletTotal += tempTotal;
+                    walletTotal += parseFloat(data.token?.exchange_rate || "0") * (Number(data.value || "0") / Math.pow(10, Number(data.token?.decimals || "0")));
                 });
                 setNetWorth(walletTotal);
             }
@@ -128,14 +126,14 @@ export default function Profile() {
                             {address}
                         </h1>
                     </div>
-                    <div className="flex items-end">
+                    {/* <div className="flex items-end">
                         <Card className="w-[30vw] max-sm:w-[80vw]">
                             <CardContent className="py-4">
                                 <p className="text-lg">Net Worth</p>
                                 <h1 className="text-2xl font-semibold">${netWorth}</h1>
                             </CardContent>
                         </Card>
-                    </div>
+                    </div> */}
                 </div>
                 <div>
                 <Tabs value={tabState} className="max-w-screen">
