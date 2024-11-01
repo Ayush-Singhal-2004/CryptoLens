@@ -60,10 +60,13 @@ function Navbar() {
     return (
         <nav className="flex border-b dark:border-gray-700 dark:bg-gray-900 shadow-md justify-between px-6 py-3">
             <div className="flex gap-[5vw]">
-            {theme==="dark"?<Image src={lightlogo} width={200} height={18} className="hover:cursor-pointer" onClick={()=>{
+            {/* {theme==="dark"?<Image src={lightlogo} width={200} height={18} className="hover:cursor-pointer" onClick={()=>{
                 redirectToHome()
             }}/>:<Image src={darklogo} width={200} height={20} className="hover:cursor-pointer" onClick={()=>{
-                redirectToHome()}}/>}
+                redirectToHome()}}/>} */}
+                <h1 className="text-3xl font-semibold max-sm:text-2xl cursor-pointer" onClick={redirectToHome}>
+                    CryptoLens
+                </h1>
             </div>
             <div className="flex gap-3">
                 {
