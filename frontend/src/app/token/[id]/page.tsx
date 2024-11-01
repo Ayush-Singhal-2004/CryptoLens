@@ -12,21 +12,21 @@ import { Token } from "@/app/utils/types"
 import { useParams } from "next/navigation"
 
 
-const conversionData = {
-  "base_currency_id": "btc-bitcoin",
-  "base_currency_name": "Bitcoin",
-  "base_price_last_updated": "2024-10-31T11:30:35Z",
-  "quote_currency_id": "eth-ethereum",
-  "quote_currency_name": "Ethereum",
-  "quote_price_last_updated": "2024-10-31T11:30:35Z",
-  "amount": 1.2,
-  "price": 32.946620167557
-}
+// const conversionData = {
+//   "base_currency_id": "btc-bitcoin",
+//   "base_currency_name": "Bitcoin",
+//   "base_price_last_updated": "2024-10-31T11:30:35Z",
+//   "quote_currency_id": "eth-ethereum",
+//   "quote_currency_name": "Ethereum",
+//   "quote_price_last_updated": "2024-10-31T11:30:35Z",
+//   "amount": 1.2,
+//   "price": 32.946620167557
+// }
 
 export default function TokenPage() {
   const params = useParams()
-  const [baseAmount, setBaseAmount] = useState(conversionData.amount.toString())
-  const [quoteAmount, setQuoteAmount] = useState(conversionData.price.toString())
+  // const [baseAmount, setBaseAmount] = useState(conversionData.amount.toString())
+  // const [quoteAmount, setQuoteAmount] = useState(conversionData.price.toString())
   const [tokenData,setTokenData]=useState<Token | null>(null);
 
   const getTokenData = async() => {
@@ -68,23 +68,23 @@ export default function TokenPage() {
     )
   }
 
-  const handleBaseAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-    setBaseAmount(value)
-    const numValue = parseFloat(value)
-    if (!isNaN(numValue)) {
-      setQuoteAmount((numValue * (conversionData.price / conversionData.amount)).toFixed(6))
-    }
-  }
+  // const handleBaseAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const value = e.target.value
+  //   setBaseAmount(value)
+  //   const numValue = parseFloat(value)
+  //   if (!isNaN(numValue)) {
+  //     setQuoteAmount((numValue * (conversionData.price / conversionData.amount)).toFixed(6))
+  //   }
+  // }
 
-  const handleQuoteAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-    setQuoteAmount(value)
-    const numValue = parseFloat(value)
-    if (!isNaN(numValue)) {
-      setBaseAmount((numValue / (conversionData.price / conversionData.amount)).toFixed(6))
-    }
-  }
+  // const handleQuoteAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const value = e.target.value
+  //   setQuoteAmount(value)
+  //   const numValue = parseFloat(value)
+  //   if (!isNaN(numValue)) {
+  //     setBaseAmount((numValue / (conversionData.price / conversionData.amount)).toFixed(6))
+  //   }
+  // }
 
   return (
     <div className="dark:bg-gray-900 min-h-screen">
@@ -162,7 +162,7 @@ export default function TokenPage() {
                         { label: "Market Cap", value: `$${formatLargeNumber(tokenData?.quotes.USD.market_cap?tokenData?.quotes.USD.market_cap:0)}` },
                         { label: "All-Time High", value: `$${formatNumber(tokenData?.quotes.USD.ath_price?tokenData?.quotes.USD.ath_price:0)} (${new Date(tokenData?.quotes.USD.ath_date?tokenData?.quotes.USD.ath_date:'').toLocaleDateString()})` }
                       ].map((item, index) => (
-                        <tr key={index} className="border-b last:border-b-0">
+                        <tr key={index} className="border-b last:border-b-0 border-gray-300">
                           <td className="py-4 text-sm text-gray-500">{item.label}</td>
                           <td className="py-4 text-sm text-right">{item.value}</td>
                         </tr>
@@ -185,7 +185,7 @@ export default function TokenPage() {
                         { label: "Total Supply", value: `${formatLargeNumber(tokenData?.total_supply?tokenData?.total_supply:0)} ${tokenData?.symbol}` },
                         { label: "Max Supply", value: tokenData?.max_supply === 0 ? "Unlimited" : `${formatLargeNumber(tokenData?.max_supply?tokenData?.max_supply:0)} ${tokenData?.symbol}` },
                       ].map((item, index) => (
-                        <tr key={index} className="border-b last:border-b-0">
+                        <tr key={index} className="border-b last:border-b-0 border-gray-300">
                           <td className="py-4 text-sm text-gray-500">{item.label}</td>
                           <td className="py-4 text-sm text-right">{item.value}</td>
                         </tr>
@@ -198,7 +198,7 @@ export default function TokenPage() {
           </Tabs>
         </div>
 
-        <div className="lg:w-80">
+        {/* <div className="lg:w-80">
           <Card>
             <CardHeader>
               <CardTitle className="text-xl font-bold">Currency Converter</CardTitle>
@@ -237,7 +237,7 @@ export default function TokenPage() {
               </div>
             </CardContent>
           </Card>
-        </div>
+        </div> */}
       </div>
     </div>
     </div>

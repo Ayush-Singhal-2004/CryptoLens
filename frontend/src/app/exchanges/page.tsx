@@ -17,10 +17,12 @@ import { Exchange } from "../utils/types"
 import LeftSidebar from "../components/Leftsidebar"
 import { useToast } from "@/hooks/use-toast"
 import { Toaster } from "@/components/ui/toaster"
+import { useRouter } from "next/navigation"
 
-export default function ExchangeList() {
+export default function ExchangeList() { 
+    const router = useRouter();
     const { toast } = useToast();
-    const [exchanges, setExchanges] = useState<[Exchange]>([]);
+    const [exchanges, setExchanges] = useState<Exchange[] | null>(null);
 
     useEffect(() => {
       let exchanges = localStorage.getItem("exchanges");
@@ -34,8 +36,7 @@ export default function ExchangeList() {
     const getExchanges = async() => {
         const response = await getResponse("exchanges");
         if(response.status == 200 && response.data.data !== "Internal server error") {
-            // console.log(response.data?.data);
-            // console.log(response.data.data.links)
+
             localStorage.setItem("exchanges", JSON.stringify(response.data?.data));
             setExchanges(response.data?.data);
         } else {
@@ -53,6 +54,9 @@ export default function ExchangeList() {
       })
   }
 
+  const handleExchange=(id:string) => {
+    router.push(`/exchanges/${id}`);
+  }
   console.log("EXCHANGE");
   console.log(exchanges);
   
@@ -66,7 +70,7 @@ export default function ExchangeList() {
             <div className="container mx-auto p-4">
           <h1 className="text-2xl font-bold mb-6">Cryptocurrency Exchanges</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {exchanges.map((exchange) => (
+            {exchanges?.map((exchange) => (
               <Card key={exchange.id} className="shadow-xl transition-shadow duration-300 ">
                 <CardHeader>
                   <div className="flex items-center space-x-4">
@@ -167,7 +171,9 @@ export default function ExchangeList() {
                       </Button>
                     }
                   </div>
-                  <Button variant="secondary">More Details</Button>
+                  <Button variant="secondary" onClick={()=>{
+                    handleExchange(exchange.id)
+                  }}>More Details</Button>
                 </CardFooter>
               </Card>
             ))}

@@ -56,7 +56,7 @@ function formatPercentage(value: number) {
   )
 }
 
-export default function Component() {
+export default function CoinPage() {
     const { toast } = useToast();
     const params = useParams()
     const [Coin, setCoin] =useState<Coin | null>(null);
