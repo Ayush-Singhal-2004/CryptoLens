@@ -22,12 +22,13 @@ function Navbar() {
     const { theme, setTheme } = useTheme();
     // const [connectWalletFlag, setConnectWalletFlag] = useState(true);
     const router = useRouter();
-    const [address, setAddress] = useState(localStorage.getItem("address"));
+    const [address, setAddress] = useState<null | string>(null);
     const { toast } = useToast();
 
     useEffect(() => {
-        if(localStorage.getItem("address")) {
-            // setConnectWalletFlag(false);
+        const address = localStorage.getItem("address");
+        if(address) {
+            setAddress(address);
         }
     }, []);
     
