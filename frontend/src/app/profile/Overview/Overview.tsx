@@ -27,20 +27,8 @@ type OverviewPropType = {
 
 function Overview({updateTabState, tokens, nfts}: OverviewPropType) {
 
-    const [total, setTotal] = useState(0);
+    // const [total, setTotal] = useState(0);
     const [nftsTotal, setNftsTotal] = useState(0);
-
-    useEffect(() => {
-        if(tokens) {
-            let walletTotal = 0;
-            tokens.map((data) => {
-                let tempTotal = total;
-                tempTotal += parseFloat(data.token.exchange_rate || "0") * (Number(data.value || "0") / Math.pow(10, Number(data.token.decimals || "0")));
-                walletTotal += tempTotal;
-            });
-            setTotal(walletTotal);
-        }
-    }, [tokens]);
 
     return (
         <div className="px-4 flex justify-between py-2 max-sm:flex-col max-sm:items-center">
@@ -50,7 +38,7 @@ function Overview({updateTabState, tokens, nfts}: OverviewPropType) {
                         <CardTitle className="text-xl">
                             <div className="flex justify-between">
                                 <h1>Wallet</h1>
-                                <h1>${total}</h1>
+                                {/* <h1>${total}</h1> */}
                             </div>
                         </CardTitle>
                     </CardHeader>

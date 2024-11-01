@@ -15,11 +15,20 @@ export default function Home() {
     const [TopTokens, setTopTokens] = useState<TrendingTokens[] | null>(null);
     const { toast } = useToast();
 
+    useEffect(() => {
+        let topTokens = localStorage.getItem("topTokens");
+        if(topTokens) {
+            topTokens = JSON.parse(topTokens);
+            setTopTokens(topTokens as any);
+        }
+    }, []);
+
     const getTopTokens=async() => {
         const response = await getResponse(`trendingtokens`);
         console.log(response);
         if(response.status == 200 && response.data.data !== "Internal server error") {
             console.log(response.data?.data);
+            localStorage.setItem("topTokens", JSON.stringify(response.data?.data));
             setTopTokens(response.data?.data);
         }
     }
@@ -32,7 +41,7 @@ export default function Home() {
     }
 
     useEffect(()=>{
-        getTopTokens()
+        getTopTokens();
     },[])
 
 

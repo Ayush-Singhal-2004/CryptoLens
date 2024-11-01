@@ -23,13 +23,28 @@ function LeftSidebar({updateToast}: LeftSidebarPropType) {
     const [hasMounted, setHasMounted] = useState(false);
 
     useEffect(() => {
-        console.log("LeftSidebar mounted");
+        // console.log("LeftSidebar mounted");
         setHasMounted(true);
+    }, []);
+
+    useEffect(() => {
+        let chains = localStorage.getItem("chains");
+        if(chains) {
+            chains = JSON.parse(chains);
+            setChains(chains as any);
+        }
+
+        let coins = localStorage.getItem("coins");
+        if(coins) {
+            coins = JSON.parse(coins);
+            setCoins(coins as any);
+        }
     }, []);
 
     const getChains = async () => {
         const response = await getResponse(`chains`);
         if (response.status === 200 && response.data.data !== "Internal server error") {
+            localStorage.setItem("chains", JSON.stringify(response.data?.data));
             setChains(response.data?.data);
         }
     };
@@ -37,6 +52,7 @@ function LeftSidebar({updateToast}: LeftSidebarPropType) {
     const getCoins = async () => {
         const response = await getResponse(`coins`);
         if (response.status === 200 && response.data.data !== "Internal server error") {
+            localStorage.setItem("coins", JSON.stringify(response.data?.data));
             setCoins(response.data?.data);
         }
     };

@@ -20,12 +20,23 @@ import { Toaster } from "@/components/ui/toaster"
 
 export default function ExchangeList() {
     const { toast } = useToast();
-    const [exchanges, setExchanges] =useState<[Exchange]>([]);
+    const [exchanges, setExchanges] = useState<[Exchange]>([]);
+
+    useEffect(() => {
+      let exchanges = localStorage.getItem("exchanges");
+      if(exchanges) {
+            exchanges = JSON.parse(exchanges);
+            setExchanges(exchanges as any);
+      }
+      else setExchanges([]);
+    }, []);
+
     const getExchanges = async() => {
         const response = await getResponse("exchanges");
         if(response.status == 200 && response.data.data !== "Internal server error") {
-            console.log(response.data?.data);
-            console.log(response.data.data.links)
+            // console.log(response.data?.data);
+            // console.log(response.data.data.links)
+            localStorage.setItem("exchanges", JSON.stringify(response.data?.data));
             setExchanges(response.data?.data);
         } else {
             console.error("Failed to fetch coin data");
@@ -138,7 +149,7 @@ export default function ExchangeList() {
                 <CardFooter className="flex justify-between">
                   <div className="flex space-x-2">
                     {
-                      exchange.links.twitter && 
+                      exchange.links?.twitter && 
                       <Button variant="outline" size="icon" asChild>
                         <a href={exchange.links.twitter[0]} target="_blank" rel="noopener noreferrer">
                           <Twitter className="h-4 w-4" />
@@ -147,7 +158,7 @@ export default function ExchangeList() {
                       </Button>
                     }
                     {
-                      exchange.links.website && 
+                      exchange.links?.website && 
                       <Button variant="outline" size="icon" asChild>
                         <a href={exchange.links.website[0]} target="_blank" rel="noopener noreferrer">
                           <ExternalLink className="h-4 w-4" />

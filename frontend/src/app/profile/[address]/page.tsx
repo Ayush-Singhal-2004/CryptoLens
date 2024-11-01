@@ -18,10 +18,11 @@ export default function Profile() {
     const [tabState, setTabState] = useState("overview");
     
     const address = useParams()?.address;
-    console.log(address);
+    // console.log(address);
     
     const [tokens, setTokens] = useState<[WalletToken] | null>(null);
     const [nfts, setNfts] = useState<[NFT] | null>(null);
+    const [netWorth, setNetWorth] = useState(0);
 
     const updateTabState = (updatedState: string) => {
         setTabState(updatedState)
@@ -32,12 +33,29 @@ export default function Profile() {
     }
 
     useEffect(() => {
+        let tokens = localStorage.getItem("tokens");
+        if(tokens) {
+            tokens = JSON.parse(tokens);
+            setTokens(tokens as any);
+        }
+    }, []);
+
+    useEffect(() => {
+        let nfts = localStorage.getItem("nfts");
+        if(nfts) {
+            nfts = JSON.parse(nfts);
+            setNfts(nfts as any);
+        }
+    }, []);
+
+    useEffect(() => {
         const getTokens = async() => {
             if(isValidAddress(address as string)) {
                 const response = await getResponse(`tokens/${address}`);
-                console.log(response);
+                // console.log(response);
                 if(response.status == 200 && response.data.data !== "Internal server error") {
-                    console.log(response.data?.data);
+                    // console.log(response.data?.data);
+                    localStorage.setItem("tokens", JSON.stringify(response.data?.data));
                     setTokens(response.data?.data);
                 }
             }
@@ -52,9 +70,10 @@ export default function Profile() {
         const getNfts = async() => {
             if(isValidAddress(address as string)) {
                 const response = await getResponse(`nfts/${address}`);
-                console.log(response);
+                // console.log(response);
                 if(response.status == 200 && typeof response.data.data !== "string") {
-                    console.log(response.data.data.items);
+                    // console.log(response.data.data.items);
+                    localStorage.setItem("nfts", JSON.stringify(response.data.data.items));
                     setNfts(response.data.data.items);
                 }
             }
@@ -65,7 +84,20 @@ export default function Profile() {
         getNfts();
     }, [address])
 
-    console.log(nfts);
+    useEffect(() => {
+            if(tokens) {
+                console.log(tokens);
+                let walletTotal = 0;
+                tokens.map((data) => {
+                    let tempTotal = netWorth;
+                    tempTotal += parseFloat(data.token?.exchange_rate || "0") * (Number(data.value || "0") / Math.pow(10, Number(data.token?.decimals || "0")));
+                    walletTotal += tempTotal;
+                });
+                setNetWorth(walletTotal);
+            }
+    }, [tokens]);
+
+    // console.log(nfts);
 
     return (
         <div className="overflow-x-hidden dark:bg-[#111827]">
@@ -80,7 +112,7 @@ export default function Profile() {
                         <Card className="w-[30vw] max-sm:w-[80vw]">
                             <CardContent className="py-4">
                                 <p className="text-lg">Net Worth</p>
-                                <h1 className="text-2xl font-semibold">$25,117.03</h1>
+                                <h1 className="text-2xl font-semibold">${netWorth}</h1>
                             </CardContent>
                         </Card>
                     </div>
