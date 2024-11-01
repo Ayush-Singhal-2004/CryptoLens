@@ -10,7 +10,9 @@ import { useEffect, useState } from "react";
 import { House } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
-
+import lightlogo from "../lightlogo.png"
+import darklogo from "../darklogo.png"
+import Image from "next/image";
 declare global {
     interface Window {
         ethereum?: any;
@@ -58,8 +60,10 @@ function Navbar() {
     return (
         <nav className="flex border-b dark:border-gray-700 dark:bg-gray-900 shadow-md justify-between px-6 py-3">
             <div className="flex gap-[5vw]">
-                <h1 className="text-3xl font-bold">CryptoLens</h1>
-                {/* <Input type="text" placeholder="Search accounts" className="w-[32vw] shadow-sm" /> */}
+            {theme==="dark"?<Image src={lightlogo} width={200} height={18} className="hover:cursor-pointer" onClick={()=>{
+                redirectToHome()
+            }}/>:<Image src={darklogo} width={200} height={20} className="hover:cursor-pointer" onClick={()=>{
+                redirectToHome()}}/>}
             </div>
             <div className="flex gap-3">
                 {
