@@ -53,6 +53,16 @@ function Navbar() {
 
     }
 
+    const disconnectWallet = () => {
+        localStorage.removeItem("address");
+        setAddress(null);
+        toast({
+            title: "Wallet disconnected successfully",
+            description: "",
+            className: "bg-blue-100 border-l-4 border-[#111827] text-[#111827]"
+        })
+    }
+
     const redirectToHome = () => {
         router.push("/");
     }
@@ -83,6 +93,12 @@ function Navbar() {
                         theme == "dark" ? <MdOutlineDarkMode /> : <MdOutlineLightMode />
                     }
                 </Button>
+                {
+                    address !== null && 
+                    <Button variant="ghost" onClick={disconnectWallet}>
+                        Disconnect
+                    </Button>
+                }
             </div>
         </nav>
     )
